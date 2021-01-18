@@ -1,0 +1,29 @@
+{
+  "name": "may-welding-server",
+  "version": "0.1.0",
+  "author": "Jon Shaw",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "debug": "nodemon --inspect ./bin/www",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i --prefix ../clients/user-client && npm run build --prefix ../clients/user-client && npm i --prefix ..clients/admin-client && npm run build --prefix ../clients/admin-client"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.3.3",
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "jsonwebtoken": "^8.5.1",
+    "mongodb": "^3.6.2",
+    "mongoose": "^5.11.8",
+    "morgan": "~1.9.1",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.6"
+  }
+}

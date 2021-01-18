@@ -1,0 +1,19 @@
+{
+  "name": "may-welding",
+  "version": "0.1.0",
+  "main": "index.js",
+  "scripts": {
+    "server": "npm run debug --prefix server",
+    "user-client": "npm run debug-windows --prefix clients/user-client",
+    "admin-client": "npm run debug-windows --prefix clients/admin-client",
+    "server-and-user-client": "concurrently \"npm run server\" \"npm run user-client\"",
+    "server-and-admin-client": "concurrently \"npm run server\" \"npm run admin-client\"",
+    "all": "concurrently \"npm run server\" \"npm run user-client\" \"npm run admin-client\""
+  },
+  "author": "Jon Shaw",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^5.3.0",
+    "dotenv": "^8.2.0"
+  }
+}
