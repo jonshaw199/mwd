@@ -2,30 +2,34 @@ import React from "react";
 import { withStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Typography from "@material-ui/core/Typography";
+// import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
-import PhoneIcon from "@material-ui/icons/Phone";
 import Hidden from "@material-ui/core/Hidden";
 import { withTheme } from "@material-ui/core/styles";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import Box from "@material-ui/core/Box";
+// import Box from "@material-ui/core/Box";
 
 import { changeNavHeight } from "../actions/navActions";
 import { toggleDrawer } from "../actions/drawerActions";
-import { toggleUserLoginDialog } from "../actions/userActions";
+import Constants from "../Constants";
 
 const useStyles = (theme) => ({
+  root: {
+    flexGrow: 1,
+  },
   appBar: {
     zIndex: 1400,
   },
-  navItems: {
+  navToolbar: {
     justifyContent: "space-between",
+    height: theme.custom.height.navbar.large,
+    paddingTop: "0.66rem",
+    paddingBottom: "0.66rem",
   },
   navSection: {
     display: "flex",
@@ -52,6 +56,20 @@ const useStyles = (theme) => ({
     fontSize: "26px",
   },
   accountIconMobile: {},
+  smallLogo: {
+    height: "100%",
+    width: "auto",
+  },
+  bigLogo: {
+    height: "100%",
+    width: "auto",
+  },
+  navGrid: {
+    height: "100%",
+  },
+  navGridItem: {
+    height: "100%",
+  },
 });
 
 class MWNavbar extends React.Component {
@@ -79,43 +97,49 @@ class MWNavbar extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <React.Fragment>
-        <AppBar
-          position="fixed"
-          className={classes.appBar}
-          ref={(element) => (this.appBarRef = element)}
-        >
-          <Toolbar className="navItems">
-            <Grid container>
-              <Grid item xs>
-                <div className={classes.navSection}>
-                  <Hidden smDown>
-                    <Typography variant="h6">May Welding</Typography>
-                  </Hidden>
-                  <Hidden mdUp>
-                    <IconButton
-                      edge="start"
-                      color="inherit"
-                      aria-label="menu"
-                      onClick={() => this.props.toggleDrawer()}
-                    >
-                      <MenuIcon />
-                    </IconButton>
-                  </Hidden>
+      <AppBar
+        className={classes.appBar}
+        ref={(element) => (this.appBarRef = element)}
+      >
+        <Toolbar className={classes.navToolbar}>
+          <Grid container className={classes.navGrid}>
+            <Grid item xs className={classes.navGridItem}>
+              <div className={classes.navSection}>
+                <Hidden smDown>
+                  <img
+                    src={Constants.staticFiles.logo}
+                    alt="May Welding and Design"
+                    className={classes.bigLogo}
+                  />
+                </Hidden>
+                <Hidden mdUp>
+                  <IconButton
+                    edge="start"
+                    color="inherit"
+                    aria-label="menu"
+                    onClick={() => this.props.toggleDrawer()}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                </Hidden>
+              </div>
+            </Grid>
+            <Hidden mdUp>
+              <Grid item xs className={classes.navGridItem}>
+                <div
+                  className={`${classes.navSection} ${classes.navSectionCenter}`}
+                >
+                  <img
+                    src={Constants.staticFiles.logo}
+                    alt="May Welding and Design"
+                    className={classes.smallLogo}
+                  />
                 </div>
               </Grid>
-              <Hidden mdUp>
-                <Grid item xs>
-                  <div
-                    className={`${classes.navSection} ${classes.navSectionCenter}`}
-                  >
-                    <Typography variant="h6">May Welding</Typography>
-                  </div>
-                </Grid>
-              </Hidden>
-              <Grid item xs>
-                <div className={classes.navSectionRight}>
-                  {/*
+            </Hidden>
+            <Grid item xs className={classes.navGridItem}>
+              <div className={classes.navSectionRight}>
+                {/*
                   <Hidden smDown>
                     <ButtonGroup variant="text">
                       <Button color="inherit" className={classes.lgNavContactButton}>
@@ -131,69 +155,36 @@ class MWNavbar extends React.Component {
                     </ButtonGroup>
                   </Hidden>
                   */}
-                  <Hidden smDown>
-                    {this.props.views &&
-                      this.props.views.length &&
-                      this.props.views.map((view) => (
-                        <Button
-                          color="inherit"
-                          key={view.longName}
-                          component={Link}
-                          to={view.route}
-                        >
-                          {view.longName}
-                        </Button>
-                      ))}
-                    {this.props.otherButtons &&
-                      this.props.otherButtons.length &&
-                      this.props.otherButtons.map((btn) => (
-                        <Button
-                          color="inherit"
-                          key={btn.name}
-                          onClick={btn.handleClick}
-                        >
-                          {btn.name}
-                        </Button>
-                      ))}
-                    <Box ml={2}>
-                      <IconButton
-                        edge="start"
+                <Hidden smDown>
+                  {this.props.views &&
+                    this.props.views.length > 0 &&
+                    this.props.views.map((view) => (
+                      <Button
                         color="inherit"
-                        area-label="account"
-                        onClick={() => this.props.toggleUserLoginDialog()}
+                        key={view.longName}
+                        component={Link}
+                        to={view.route}
                       >
-                        <AccountCircleIcon
-                          className={classes.accountIconDesktop}
-                        />
-                      </IconButton>
-                    </Box>
-                  </Hidden>
-                  <Hidden mdUp>
-                    {/*
-                    <Button color="inherit">
-                      <Hidden smDown>
-                        <PhoneIcon className={classes.phoneIcon} />
-                      </Hidden>
-                      916.123.4567
-                    </Button>
-                    */}
-                    <IconButton
-                      edge="start"
-                      color="inherit"
-                      area-label="account"
-                      onClick={() => this.props.toggleUserLoginDialog()}
-                    >
-                      <AccountCircleIcon
-                        className={classes.accountIconMobile}
-                      />
-                    </IconButton>
-                  </Hidden>
-                </div>
-              </Grid>
+                        {view.longName}
+                      </Button>
+                    ))}
+                  {this.props.otherButtons &&
+                    this.props.otherButtons.length > 0 &&
+                    this.props.otherButtons.map((btn) => (
+                      <Button
+                        color="inherit"
+                        key={btn.name}
+                        onClick={btn.handleClick}
+                      >
+                        {btn.name}
+                      </Button>
+                    ))}
+                </Hidden>
+              </div>
             </Grid>
-          </Toolbar>
-        </AppBar>
-      </React.Fragment>
+          </Grid>
+        </Toolbar>
+      </AppBar>
     );
   }
 }
@@ -206,5 +197,4 @@ MWNavbar.propTypes = {
 export default connect(null, {
   changeNavHeight,
   toggleDrawer,
-  toggleUserLoginDialog,
 })(withStyles(useStyles)(withTheme(MWNavbar)));

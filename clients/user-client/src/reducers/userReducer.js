@@ -1,5 +1,4 @@
 import {
-  TOGGLE_USER_LOGIN_DIALOG,
   REGISTER_USER_LOADING,
   REGISTER_USER_FAILURE,
   REGISTER_USER_SUCCESS,
@@ -7,6 +6,8 @@ import {
   GET_USER_LOADING,
   GET_USER_FAILURE,
   GET_USER_SUCCESS,
+  OPEN_USER_LOGIN_DIALOG,
+  CLOSE_USER_LOGIN_DIALOG,
 } from "../actions/types";
 import Constants from "../Constants";
 
@@ -24,10 +25,15 @@ const initialState = {
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case TOGGLE_USER_LOGIN_DIALOG:
+    case OPEN_USER_LOGIN_DIALOG:
       return {
         ...state,
-        userLoginDialogOpen: !state.userLoginDialogOpen,
+        userLoginDialogOpen: true,
+      };
+    case CLOSE_USER_LOGIN_DIALOG:
+      return {
+        ...state,
+        userLoginDialogOpen: false,
       };
     case REGISTER_USER_LOADING:
       return {
@@ -53,7 +59,7 @@ const userReducer = (state = initialState, action) => {
     case SET_CURRENT_USER:
       return {
         ...state,
-        currentUser: action.data,
+        currentUser: action.data.data,
       };
     case GET_USER_LOADING:
       return {

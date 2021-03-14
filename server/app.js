@@ -27,9 +27,8 @@ if (result.error) {
   dotenv.config();
 }
 
-if (fs.existsSync("./.env.local"))
-  // Dont delete me
-  require("./utils/mongo");
+// Dont delete me
+require("./utils/mongo");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

@@ -5,9 +5,8 @@ import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import ChatIcon from "@material-ui/icons/Chat";
 import Box from "@material-ui/core/Box";
 import Hidden from "@material-ui/core/Hidden";
-import { useSelector, useDispatch } from "react-redux";
-import { ThemeProvider } from "@material-ui/core/styles";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import { useSelector } from "react-redux";
+import { MuiThemeProvider } from "@material-ui/core/styles";
 
 import Home from "./views/Home";
 import Gallery from "./views/Gallery";
@@ -16,21 +15,17 @@ import MWNavbar from "./components/MWNavbar";
 import MWDrawer from "./components/MWDrawer";
 import MWFooter from "./components/MWFooter";
 import MWUserLoginDialog from "./components/MWUserLoginDialog";
-import { getPreferences } from "./actions/preferencesActions";
-import { getProjects } from "./actions/projectActions";
-import { getUser } from "./actions/userActions";
-import { goToAdminClient as goToAdminClientAction } from "./actions/adminActions";
-import { toggleUserLoginDialog } from "./actions/userActions";
 import "./App.less";
-import Constants from "./Constants";
+
+const redir = () => {};
 
 const App = () => {
-  const { theme, navHeight, currentUser } = useSelector((state) => ({
+  const { theme, navHeight, doGoToAdminClient } = useSelector((state) => ({
     projects: state.projectReducer.projects,
-    // preferences: state.preferencesReducer.preferences,
+    preferences: state.preferencesReducer.preferences,
     theme: state.themeReducer.theme,
     navHeight: state.navReducer.navHeight,
-    currentUser: state.userReducer.currentUser,
+    doGoToAdminClient: state.adminReducer.doGoToAdminClient,
   }));
 
   const [views] = React.useState([
@@ -75,65 +70,34 @@ const App = () => {
     },
   ]);
 
-  const dispatch = useDispatch();
-
-  const [otherButtons] = React.useState([
-    {
-      name: "Log In",
-      handleClick: () => dispatch(toggleUserLoginDialog()),
-      level: 1,
-      icon: () => {
-        return <AccountCircleIcon />;
-      },
-    },
-  ]);
+  const [otherButtons] = React.useState([]);
 
   React.useEffect(() => {
-    dispatch(getPreferences());
-    dispatch(getProjects());
-    /*
-    const token = localStorage.getItem(Constants.authTokenName);
-    if (token && token !== "null") {
-      dispatch(getUser());
-    }
-    */
-  }, [dispatch]);
-
-  // Logging into the Admin Client from the User Client is a 2 step process: dispatch adminLoggedIn, get/save token and take care of anything else, then go
-  React.useEffect(() => {
-    if (Object.keys(currentUser || {}).length)
-      localStorage.setItem(Constants.authTokenName, currentUser.token);
-    else localStorage.clear(Constants.authTokenName);
-  }, [dispatch, currentUser]);
-
-  /*
-  React.useEffect(() => {
-    false &&
-      goToAdminClient &&
-      (window.location.href = `${window.location.protocol}//${window.location.host}/admin`);
-  }, [goToAdminClient]);
-  */
+    doGoToAdminClient && redir();
+  }, [doGoToAdminClient]);
 
   return (
     <Router>
-      <ThemeProvider theme={theme}>
-        <MWNavbar views={views} otherButtons={otherButtons} />
-        <Hidden mdUp>
-          <MWDrawer views={views} otherButtons={otherButtons} />
-        </Hidden>
+      <MuiThemeProvider theme={theme}>
         <Box>
-          <div style={{ height: navHeight + "px" }} />
-          {views.map((view) => (
-            <Route exact={view.home} path={view.route} key={view.shortName}>
-              {view.component()}
-            </Route>
-          ))}
+          <MWNavbar views={views} otherButtons={otherButtons} />
+          <Hidden mdUp>
+            <MWDrawer views={views} otherButtons={otherButtons} />
+          </Hidden>
+          <Box>
+            <div style={{ height: navHeight + "px" }} />
+            {views.map((view) => (
+              <Route exact={view.home} path={view.route} key={view.shortName}>
+                {view.component()}
+              </Route>
+            ))}
+          </Box>
+          <Box>
+            <MWFooter />
+          </Box>
+          <MWUserLoginDialog />
         </Box>
-        <Box>
-          <MWFooter />
-        </Box>
-        <MWUserLoginDialog />
-      </ThemeProvider>
+      </MuiThemeProvider>
     </Router>
   );
 };

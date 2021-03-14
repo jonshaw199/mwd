@@ -14,7 +14,7 @@ const ProjectSchema = new Schema(
       trim: true,
     },
     primaryImage: { type: Schema.Types.ObjectId, ref: "Image" },
-    otherImages: [{ type: Schema.Types.ObjectId, ref: "Image" }],
+    images: [{ type: Schema.Types.ObjectId, ref: "Image" }],
   },
   { collection: "project" }
 );

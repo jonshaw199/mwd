@@ -19,9 +19,9 @@ const ImageSchema = new Schema(
       type: String,
       required: true,
     },
-    fileExtension: {
+    originalFileName: {
       type: String,
-      required: true,
+      trim: true,
     },
   },
   { collection: "image" }

@@ -8,7 +8,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import { makeStyles } from "@material-ui/core/styles";
 import Typography from "@material-ui/core/Typography";
 
-import { toggleUserLoginDialog } from "../actions/userActions";
+import { closeUserLoginDialog } from "../actions/userActions";
 import { logIn } from "../actions/authActions";
 
 const useStyles = makeStyles(() => ({
@@ -40,8 +40,8 @@ const MWAdminLoginDialog = () => {
     })
   );
 
-  const toggleUserLoginDialogCB = React.useCallback(() => {
-    dispatch(toggleUserLoginDialog());
+  const closeUserLoginDialogCB = React.useCallback(() => {
+    dispatch(closeUserLoginDialog());
   }, [dispatch]);
 
   const logInCB = React.useCallback(() => {
@@ -51,7 +51,7 @@ const MWAdminLoginDialog = () => {
   }, [dispatch, username, password]);
 
   return (
-    <Dialog open={userLoginDialogOpen} onClose={toggleUserLoginDialogCB}>
+    <Dialog open={userLoginDialogOpen} onClose={closeUserLoginDialogCB}>
       <Box py={2} px={3}>
         <TextField
           label="Username"

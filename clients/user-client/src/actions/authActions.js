@@ -3,9 +3,10 @@ import {
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
   LOG_OUT,
-  SET_CURRENT_USER,
-  TOGGLE_USER_LOGIN_DIALOG,
+  OPEN_USER_LOGIN_DIALOG,
 } from "./types";
+import { setCurrentUser } from "./userActions";
+import { goToAdminClient } from "./adminActions";
 import { logIn as logInAPI } from "../api/Auth";
 
 export const logInLoading = (username) => {
@@ -20,9 +21,10 @@ export const logIn = (username, password) => async (dispatch) => {
   const data = await logInAPI(username, password);
   if (data.errors && data.errors.length)
     return dispatch({ type: LOG_IN_FAILURE, data });
-  dispatch({ type: SET_CURRENT_USER, data });
+  dispatch(setCurrentUser(data));
   dispatch({ type: LOG_IN_SUCCESS, data });
-  dispatch({ type: TOGGLE_USER_LOGIN_DIALOG });
+  dispatch({ type: OPEN_USER_LOGIN_DIALOG });
+  dispatch(goToAdminClient());
 };
 
 export const logOut = (userID) => {

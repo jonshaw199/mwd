@@ -9,6 +9,7 @@ import navReducer from "./navReducer";
 import adminReducer from "./adminReducer";
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
+import quoteDialogReducer from "./quoteDialogReducer";
 
 const initialState = {};
 
@@ -30,4 +31,5 @@ export default combineReducers({
   adminReducer,
   authReducer,
   userReducer,
+  quoteDialogReducer,
 });

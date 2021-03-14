@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const Preferences = require("../../models/Preferences");
 
 router.get("/", async (req, res) => {
-  // const result = await Preferences.findOne();
-  return res.status(200).json({ data: {} });
+  const result = await Preferences.findOne();
+  return res.status(200).json({ data: result });
 });
 
 router.put("/", async (req, res) => {

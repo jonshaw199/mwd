@@ -1,16 +1,27 @@
 import { createMuiTheme } from "@material-ui/core/styles";
-import { green, purple } from "@material-ui/core/colors";
-
 import global from "./GlobalTheme";
 
 const light = {
   ...global,
   palette: {
+    type: "light",
     primary: {
-      main: green[500],
+      main: "#efebe9",
     },
     secondary: {
-      main: purple[500],
+      main: "#bf360c",
+    },
+    error: {
+      main: "#bf360c",
+    },
+    warning: {
+      main: "#bf360c",
+    },
+    info: {
+      main: "#bf360c",
+    },
+    success: {
+      main: "#bf360c",
     },
   },
 };

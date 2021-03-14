@@ -65,8 +65,8 @@ const Gallery = (props) => {
 
   return (
     <Box
-      p={theme.padding.appBodyPadding}
-      mt={theme.margin.verticalHeadingMargin}
+      p={theme.custom.spacing.appBody}
+      mt={theme.custom.spacing.verticalHeading}
     >
       {projects && (
         <GridList cellHeight={160} cols={numCols}>
@@ -77,7 +77,7 @@ const Gallery = (props) => {
               onClick={() => openImageDialogCB(project)}
             >
               <img
-                src={`${project.primaryImage.filePath}/${project.primaryImage.fileName}.${project.primaryImage.fileExtension}`}
+                src={`${project.primaryImage.filePath}/${project.primaryImage.fileName}`}
                 alt={project.name}
               />
               <GridListTileBar

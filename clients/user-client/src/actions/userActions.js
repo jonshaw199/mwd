@@ -1,5 +1,4 @@
 import {
-  TOGGLE_USER_LOGIN_DIALOG,
   REGISTER_USER_LOADING,
   REGISTER_USER_FAILURE,
   REGISTER_USER_SUCCESS,
@@ -7,6 +6,8 @@ import {
   GET_USER_LOADING,
   GET_USER_SUCCESS,
   GET_USER_FAILURE,
+  OPEN_USER_LOGIN_DIALOG,
+  CLOSE_USER_LOGIN_DIALOG,
 } from "./types";
 import {
   registerUser as registerUserAPI,
@@ -14,9 +15,15 @@ import {
 } from "../api/User";
 import Constants from "../Constants";
 
-export const toggleUserLoginDialog = () => {
+export const openUserLoginDialog = () => {
   return {
-    type: TOGGLE_USER_LOGIN_DIALOG,
+    type: OPEN_USER_LOGIN_DIALOG,
+  };
+};
+
+export const closeUserLoginDialog = () => {
+  return {
+    type: CLOSE_USER_LOGIN_DIALOG,
   };
 };
 
@@ -50,7 +57,10 @@ export const getUserLoading = (token) => {
   };
 };
 
-export const getUser = (token) => async (dispatch) => {
+export const getUser = (token) => async (dispatch, getState) => {
+  if (!token) {
+    token = getState().userReducer.currentUser.token;
+  }
   dispatch({ type: GET_USER_LOADING }, token);
   const data = await getUserByTokenAPI(token);
   if (data.errors && data.errors.length) {

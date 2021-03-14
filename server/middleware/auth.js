@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 const constants = require("../constants");
 
 function auth(req, res, next) {
-  const token = req.header("x-auth-token");
+  const token = req.header("mwd-auth-token");
   if (!token)
     return res.status(401).json({ errors: [constants.errors.auth.NO_TOKEN] });
   try {

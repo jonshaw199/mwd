@@ -9,6 +9,58 @@ const PreferencesSchema = new Schema(
         trim: true,
         required: true,
       },
+      phoneNumber: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      email: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      address: {
+        streedAddress: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+        city: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+        state: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+        zip: {
+          type: String,
+          trim: true,
+          required: true,
+        },
+        longitude: {
+          type: Number,
+          required: true,
+        },
+        latitude: {
+          type: Number,
+          required: true,
+        },
+      },
+    },
+    content: {
+      about: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      contact: {
+        type: String,
+        trim: true,
+        required: true,
+      },
     },
     auth: {
       tokenExpiration: {

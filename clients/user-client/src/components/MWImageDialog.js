@@ -11,71 +11,71 @@ import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import PropTypes from "prop-types";
 
+const useStyles = makeStyles((theme) => ({
+  image: {
+    width: "100%",
+    height: "100%",
+  },
+  horizontalImageOverlay: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    alignItems: "center",
+    top: 0,
+  },
+  verticalImageOverlay: {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    top: "0",
+    justifyContent: "space-between",
+  },
+  arrowContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    zIndex: theme.zIndex.imageDialogOverlay,
+  },
+  topContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "space-between",
+    zIndex: theme.zIndex.imageDialogOverlay,
+  },
+  bottomContainer: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    zIndex: theme.zIndex.imageDialogOverlay,
+    color: "rgba(0, 0, 0, 0.54)",
+  },
+  paperScrollPaper: {
+    maxHeight: "100%",
+  },
+  infoOverlay: {
+    position: "absolute",
+    top: 0,
+    width: "100%",
+    height: "100%",
+  },
+  infoContainer: {
+    margin: "45px",
+    maxWidth: "200px",
+    padding: "10px",
+    backgroundColor: "rgba(0, 0, 0, 0.54)",
+    color: "rgba(255, 255, 255, 0.90)",
+  },
+}));
+
 const MWImageDialog = (props) => {
   const [images, setImages] = React.useState([]);
   const [activeImageIndex, setActiveImageIndex] = React.useState(0);
   const [showInfo, setShowInfo] = React.useState(false);
 
   const theme = useTheme();
-
-  const useStyles = makeStyles(() => ({
-    image: {
-      width: "100%",
-      height: "100%",
-    },
-    horizontalImageOverlay: {
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      top: 0,
-    },
-    verticalImageOverlay: {
-      position: "absolute",
-      width: "100%",
-      height: "100%",
-      display: "flex",
-      flexDirection: "column",
-      top: "0",
-      justifyContent: "space-between",
-    },
-    arrowContainer: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-      zIndex: theme.zIndex.imageDialogOverlay,
-    },
-    topContainer: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "space-between",
-      zIndex: theme.zIndex.imageDialogOverlay,
-    },
-    bottomContainer: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      zIndex: theme.zIndex.imageDialogOverlay,
-      color: "rgba(0, 0, 0, 0.54)",
-    },
-    paperScrollPaper: {
-      maxHeight: "100%",
-    },
-    infoOverlay: {
-      position: "absolute",
-      top: 0,
-      width: "100%",
-      height: "100%",
-    },
-    infoContainer: {
-      margin: "45px",
-      maxWidth: "200px",
-      padding: "10px",
-      backgroundColor: "rgba(0, 0, 0, 0.54)",
-      color: "rgba(255, 255, 255, 0.90)",
-    },
-  }));
 
   const classes = useStyles();
 
@@ -96,12 +96,8 @@ const MWImageDialog = (props) => {
   };
 
   React.useEffect(() => {
-    const tmpImages = [
-      props.project.primaryImage,
-      ...props.project.otherImages,
-    ];
-    setImages(tmpImages);
-  }, [props.project.primaryImage, props.project.otherImages]);
+    setImages(props.project.images);
+  }, [props.project.images]);
 
   return (
     <Dialog
@@ -110,15 +106,17 @@ const MWImageDialog = (props) => {
       style={{ zIndex: theme.zIndex.imageDialog }}
       classes={{ paperScrollPaper: classes.paperScrollPaper }}
     >
-      {images.length && (
+      {!images ||
+        (images.length < 1 && (
+          <Box p={theme.custom.spacing.appBody}>No Image To Show Here</Box>
+        ))}
+      {images.length > 0 && (
         <React.Fragment>
           <img
             src={
               images[activeImageIndex].filePath +
               "/" +
-              images[activeImageIndex].fileName +
-              "." +
-              images[activeImageIndex].fileExtension
+              images[activeImageIndex].fileName
             }
             alt={images[activeImageIndex].name}
             className={classes.image}
@@ -145,9 +143,9 @@ const MWImageDialog = (props) => {
             <Box className={classes.topContainer}>
               <Box>
                 {((images[activeImageIndex].name &&
-                  images[activeImageIndex].name.length) ||
+                  images[activeImageIndex].name.length > 0) ||
                   (images[activeImageIndex].description &&
-                    images[activeImageIndex].description.length)) && (
+                    images[activeImageIndex].description.length > 0)) && (
                   <IconButton
                     aria-label="left"
                     onClick={() => toggleShowInfo()}
@@ -206,7 +204,7 @@ const MWImageDialog = (props) => {
             <Box className={classes.infoOverlay}>
               <Paper className={classes.infoContainer}>
                 {images[activeImageIndex].name &&
-                  images[activeImageIndex].name.length && (
+                  images[activeImageIndex].name.length > 0 && (
                     <Typography variant="subtitle2">
                       <Box fontWeight="fontWeightBold">
                         {images[activeImageIndex].name}
@@ -214,7 +212,7 @@ const MWImageDialog = (props) => {
                     </Typography>
                   )}
                 {images[activeImageIndex].description &&
-                  images[activeImageIndex].description.length && (
+                  images[activeImageIndex].description.length > 0 && (
                     <Typography variant="caption">
                       {images[activeImageIndex].description}
                     </Typography>

@@ -1,7 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
-const { validateEmail, validatePhone } = require("../../utils/validation");
+const {
+  validateEmail,
+  validatePhone,
+  validateUsername,
+  validatePassword,
+} = require("../../utils/validation");
 
 router.post("/", async (req, res) => {
   let validatedFields = {};
@@ -14,6 +19,15 @@ router.post("/", async (req, res) => {
         break;
       case "phone":
         validatedFields.phone = validatePhone(valueOfFieldToValidate);
+        break;
+      case "username":
+        validatedFields.username = validateUsername(valueOfFieldToValidate);
+        break;
+      case "password":
+        validatedFields.password = validatePassword(valueOfFieldToValidate);
+        break;
+      default:
+        validatedFields[nameOfFieldToValidate] = "This field is unrecognized";
     }
   }
   return res.status(200).json({ data: validatedFields });

@@ -70,9 +70,9 @@ function MWContactForm() {
       const response = await Validation.validateFields({
         email: emailAddress,
       });
-      if (response.data && !response.data.email) {
+      if (response.data && response.data.email) {
         setEmailInvalid(true);
-        setInvalidEmailMessage("This doesn't look like a valid email address");
+        setInvalidEmailMessage(response.data.email);
       } else {
         clearInvalidEmail();
       }
@@ -86,9 +86,9 @@ function MWContactForm() {
       const response = await Validation.validateFields({
         phone: phoneNumberUnmasked,
       });
-      if (response.data && !response.data.phone) {
+      if (response.data && response.data.phone) {
         setPhoneInvalid(true);
-        setInvalidPhoneMessage("This doesn't look like a valid phone number");
+        setInvalidPhoneMessage(response.data.phone);
       } else {
         clearInvalidPhone();
       }
@@ -153,7 +153,7 @@ function MWContactForm() {
                   label="Email Address"
                   fullWidth
                   margin="normal"
-                  inputProps={{ maxLength: 50 }}
+                  inputProps={{ maxLength: 320 }}
                   error={emailInvalid}
                   helperText={invalidEmailMessage}
                   value={emailAddress}
@@ -243,5 +243,7 @@ function MWContactForm() {
     </React.Fragment>
   );
 }
+
+MWContactForm.propTypes = {};
 
 export default MWContactForm;

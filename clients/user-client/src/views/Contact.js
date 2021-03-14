@@ -10,36 +10,46 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import { useTheme } from "@material-ui/core/styles";
+import { useSelector } from "react-redux";
 
 import MWContactForm from "../components/MWContactForm";
 import MWMap from "../components/MWMap";
+import MWHeading from "../components/MWHeading";
 
 function Contact() {
+  const { preferences } = useSelector((state) => ({
+    preferences: state.preferencesReducer.preferences,
+  }));
   const theme = useTheme();
   return (
     <Paper elevation={0}>
       <Grid container>
         <Grid item xs={12} md={6}>
-          <Box p={theme.padding.appBodyPadding}>
-            <Box my={theme.margin.verticalHeadingMargin}>
-              <Typography variant="h5">Contact Info</Typography>
-            </Box>
-            <Box mt={theme.margin.general}>
-              <Typography variant="body2">
-                Lorem ipsum dolor sit amet, inani nonumes fabellas sit id, duo
-                dicat exerci persius an, te inani mollis conclusionemque eos.
-                Hinc quaeque mei eu, qui et sumo evertitur moderatius, cu usu
-                natum pertinacia intellegam.
-              </Typography>
-            </Box>
-            <Box>
+          <Box p={theme.custom.spacing.appBody}>
+            <MWHeading text="Contact Info" position="left" />
+            {preferences &&
+              preferences.content &&
+              preferences.content.contact &&
+              preferences.content.contact.length > 0 && (
+                <Box mt={theme.custom.spacing.verticalHeading}>
+                  <Typography variant={theme.custom.typography.body}>
+                    Lorem ipsum dolor sit amet, inani nonumes fabellas sit id,
+                    duo dicat exerci persius an, te inani mollis conclusionemque
+                    eos. Hinc quaeque mei eu, qui et sumo evertitur moderatius,
+                    cu usu natum pertinacia intellegam.
+                  </Typography>
+                </Box>
+              )}
+            <Box my={theme.custom.spacing.aLittleExtra}>
               <List dense>
                 <ListItem>
                   <ListItemIcon>
                     <PhoneIcon />
                   </ListItemIcon>
                   <ListItemText>
-                    <Typography variant="body1">(916) 123-4567</Typography>
+                    <Typography variant={theme.custom.typography.body}>
+                      (916) 123-4567
+                    </Typography>
                   </ListItemText>
                 </ListItem>
                 <ListItem>
@@ -47,13 +57,15 @@ function Contact() {
                     <Email />
                   </ListItemIcon>
                   <ListItemText>
-                    <Typography variant="body1">something@gmail.com</Typography>
+                    <Typography variant={theme.custom.typography.body}>
+                      something@gmail.com
+                    </Typography>
                   </ListItemText>
                 </ListItem>
               </List>
             </Box>
-            <Box mb={theme.margin.aLittleExtraMargin}>
-              <Typography variant="body2">
+            <Box>
+              <Typography variant={theme.custom.typography.body}>
                 Has et falli comprehensam, te dicam voluptaria mei. In has
                 veniam civibus. Ut purto brute audire mei, in erat tation
                 liberavisse nec.
@@ -62,17 +74,15 @@ function Contact() {
           </Box>
         </Grid>
         <Grid item xs={12} md={6}>
-          <Box p={theme.padding.appBodyPadding}>
-            <Box my={theme.margin.verticalHeadingMargin}>
-              <Typography variant="h5">Send Us A Message</Typography>
-            </Box>
-            <Box mt={theme.margin.aLittleExtraMargin}>
+          <Box p={theme.custom.spacing.appBody}>
+            <MWHeading text="Send Us A Message" position="left" />
+            <Box mt={theme.custom.spacing.verticalHeading}>
               <MWContactForm />
             </Box>
           </Box>
         </Grid>
       </Grid>
-      <Box my={theme.margin.verticalHeadingMargin}>
+      <Box my={theme.custom.spacing.verticalHeading}>
         <MWMap center={{ lat: 38.6446, lng: -121.2722 }} zoom={10} />
       </Box>
     </Paper>

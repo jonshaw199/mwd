@@ -12,14 +12,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleDrawer } from "../actions/drawerActions";
 
 const useStyles = makeStyles((theme) => ({
-  toolbarSpacer: theme.mixins.toolbar,
+  toolbarSpacer: (props) => ({
+    height: props.navHeight,
+  }),
 }));
 
 const MWDrawer = (props) => {
-  const classes = useStyles();
-  const { drawerOpen } = useSelector((state) => ({
+  const { drawerOpen, navHeight } = useSelector((state) => ({
     drawerOpen: state.drawerReducer.drawerOpen,
+    navHeight: state.navReducer.navHeight,
   }));
+  const classes = useStyles({ ...props, navHeight });
   const dispatch = useDispatch();
   const toggleDrawerCB = React.useCallback(() => dispatch(toggleDrawer()), [
     dispatch,
@@ -38,7 +41,7 @@ const MWDrawer = (props) => {
       <div className={classes.toolbarSpacer} />
       <List>
         {props.views &&
-          props.views.length &&
+          props.views.length > 0 &&
           props.views.map((view) => (
             <ListItem
               button
@@ -52,7 +55,7 @@ const MWDrawer = (props) => {
             </ListItem>
           ))}
         {props.otherButtons &&
-          props.otherButtons.length &&
+          props.otherButtons.length > 0 &&
           props.otherButtons.map((btn) => (
             <ListItem
               button

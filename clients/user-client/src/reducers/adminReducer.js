@@ -1,7 +1,7 @@
 import { GO_TO_ADMIN_CLIENT } from "../actions/types";
 
 const initialState = {
-  goToAdminClient: false,
+  doGoToAdminClient: false,
 };
 
 const adminReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const adminReducer = (state = initialState, action) => {
     case GO_TO_ADMIN_CLIENT:
       return {
         ...state,
-        goToAdminClient: true,
+        doGoToAdminClient: true,
       };
     default:
       return state;
