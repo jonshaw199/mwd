@@ -1,33 +1,60 @@
 import {
-  UPLOAD_IMAGE_LOADING,
-  UPLOAD_IMAGE_FAILURE,
-  UPLOAD_IMAGE_SUCCESS,
+  CREATE_IMAGE_LOADING,
+  CREATE_IMAGE_FAILURE,
+  CREATE_IMAGE_SUCCESS,
+  UPDATE_IMAGE_LOADING,
+  UPDATE_IMAGE_FAILURE,
+  UPDATE_IMAGE_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
-  uploadImageErrors: [],
-  uploadImageLoading: false,
+  createImageErrors: [],
+  createImageLoading: false,
+  createdImage: {},
+  updateImageErrors: [],
+  updateImageLoading: false,
+  updatedImage: {},
 };
 
 const imageReducer = (state = initialState, action) => {
   switch (action.type) {
-    case UPLOAD_IMAGE_LOADING:
+    case CREATE_IMAGE_LOADING:
       return {
         ...state,
-        uploadImageLoading: true,
-        uploadImageErrors: [],
+        createImageLoading: true,
+        createImageErrors: [],
       };
-    case UPLOAD_IMAGE_FAILURE:
+    case CREATE_IMAGE_FAILURE:
       return {
         ...state,
-        uploadImageLoading: false,
-        uploadImageErrors: action.data.errors,
+        creteImageLoading: false,
+        createImageErrors: action.data.errors,
       };
-    case UPLOAD_IMAGE_SUCCESS:
+    case CREATE_IMAGE_SUCCESS:
       return {
         ...state,
-        uploadImageLoading: false,
-        uploadImageErrors: [],
+        createImageLoading: false,
+        createImageErrors: [],
+        createdImage: action.data.data,
+      };
+    case UPDATE_IMAGE_LOADING:
+      return {
+        ...state,
+        updateImageLoading: true,
+        updateImageErrors: [],
+      };
+    case UPDATE_IMAGE_FAILURE:
+      return {
+        ...state,
+        updateImageLoading: false,
+        updateImageErrors: action.data.errors,
+      };
+    case UPDATE_IMAGE_SUCCESS:
+      return {
+        ...state,
+        updateImageLoading: false,
+        updateImageErrors: [],
+        updatedImage: action.data.data,
       };
     default:
       return state;

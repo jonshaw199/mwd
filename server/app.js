@@ -18,6 +18,7 @@ const projectsRouter = require("./routes/api/projects");
 const preferencesRouter = require("./routes/api/preferences");
 const imagesRouter = require("./routes/api/images");
 const validationRouter = require("./routes/api/validation");
+const messagesRouter = require("./routes/api/messages");
 
 const app = express();
 
@@ -53,6 +54,7 @@ app.use("/projects", projectsRouter);
 app.use("/preferences", preferencesRouter);
 app.use("/images", imagesRouter);
 app.use("/validation", validationRouter);
+app.use("/messages", messagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

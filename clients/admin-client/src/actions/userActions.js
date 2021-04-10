@@ -29,7 +29,10 @@ export const registerUser = (userInfo) => async (dispatch) => {
 };
 
 export const setCurrentUser = (data) => {
-  localStorage.setItem(Constants.authTokenName, data.data.token);
+  data &&
+    data.data &&
+    data.data.token &&
+    localStorage.setItem(Constants.authTokenName, data.data.token);
   return {
     type: SET_CURRENT_USER,
     data,
@@ -45,12 +48,16 @@ export const getUserLoading = (token) => {
 
 export const getUser = (token) => async (dispatch, getState) => {
   if (!token) {
-    token = getState().userReducer.currentUser.token;
+    token =
+      getState().userReducer.currentUser.token ||
+      localStorage.getItem(Constants.authTokenName);
   }
   dispatch({ type: GET_USER_LOADING }, token);
   const data = await getUserByTokenAPI(token);
   if (data.errors && data.errors.length) {
     localStorage.removeItem(Constants.authTokenName);
     dispatch({ type: GET_USER_FAILURE, data });
-  } else dispatch({ type: GET_USER_SUCCESS, data });
+  } else {
+    dispatch({ type: GET_USER_SUCCESS, data });
+  }
 };

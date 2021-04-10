@@ -10,17 +10,27 @@ import PhoneIcon from "@material-ui/icons/Phone";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import { useTheme } from "@material-ui/core/styles";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 import MWContactForm from "../components/MWContactForm";
 import MWMap from "../components/MWMap";
 import MWHeading from "../components/MWHeading";
+import { sendMessage } from "../actions/messageActions";
 
 function Contact() {
   const { preferences } = useSelector((state) => ({
     preferences: state.preferencesReducer.preferences,
   }));
   const theme = useTheme();
+  const dispatch = useDispatch();
+
+  const handleSendCB = React.useCallback(
+    (imgData) => {
+      dispatch(sendMessage(imgData));
+    },
+    [dispatch]
+  );
+
   return (
     <Paper elevation={0}>
       <Grid container>
@@ -77,7 +87,7 @@ function Contact() {
           <Box p={theme.custom.spacing.appBody}>
             <MWHeading text="Send Us A Message" position="left" />
             <Box mt={theme.custom.spacing.verticalHeading}>
-              <MWContactForm />
+              <MWContactForm sendHandler={handleSendCB} />
             </Box>
           </Box>
         </Grid>

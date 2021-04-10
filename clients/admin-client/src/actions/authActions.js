@@ -14,9 +14,10 @@ export const logInLoading = (username) => {
   };
 };
 
-export const logIn = (username, password) => async (dispatch) => {
-  dispatch({ type: LOG_IN_LOADING }, username);
-  const data = await logInAPI(username, password);
+export const logIn = (frmData) => async (dispatch) => {
+  const user = frmData.get("username");
+  dispatch({ type: LOG_IN_LOADING }, user);
+  const data = await logInAPI(frmData);
   if (data.errors && data.errors.length) {
     dispatch(setCurrentUser({}));
     dispatch({ type: LOG_IN_FAILURE, data });

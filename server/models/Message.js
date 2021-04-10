@@ -1,34 +1,31 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const ImageSchema = new Schema(
+const MessageSchema = new Schema(
   {
-    name: {
+    firstName: {
       type: String,
       trim: true,
     },
-    description: {
+    lastName: {
       type: String,
       trim: true,
     },
-    filePath: {
+    email: {
       type: String,
+      trim: true,
       required: true,
     },
-    fileName: {
-      type: String,
-      required: true,
-    },
-    originalFileName: {
+    phone: {
       type: String,
       trim: true,
     },
-    internalUse: {
+    message: {
       type: String,
       trim: true,
     },
   },
-  { collection: "image" }
+  { collection: "message" }
 );
 
-module.exports = mongoose.model("Image", ImageSchema);
+module.exports = mongoose.model("Message", MessageSchema);

@@ -19,7 +19,10 @@ const MWLoginForm = () => {
   const [password, setPassword] = React.useState("");
 
   const logInCB = React.useCallback(() => {
-    dispatch(logIn(username, password));
+    const formData = new FormData();
+    formData.append("username", username);
+    formData.append("password", password);
+    dispatch(logIn(formData));
     setUsername("");
     setPassword("");
   }, [dispatch, username, password]);
@@ -36,6 +39,7 @@ const MWLoginForm = () => {
       />
       <TextField
         name="password"
+        type="password"
         label="Password"
         fullWidth
         inputProps={{ maxLength: 250 }}

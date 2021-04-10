@@ -1,4 +1,9 @@
 const constants = {
+  authTokenName: "mwd-auth-token",
+  imagesRelativeToPublic: "/images",
+  internalUseIds: {
+    projectImageDefault: "6066ae532999bbeec69db4cc",
+  },
   errors: {
     common: {
       MISSING_FIELDS: (fields) => {

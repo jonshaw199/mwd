@@ -1,22 +1,30 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Box from "@material-ui/core/Box";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useTheme } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
 
-function MWProjectList(props) {
+import { setActiveProject } from "../actions/projectActions";
+
+function MWProjectList() {
   const theme = useTheme();
-  const { projects, selectHandler } = props;
-  const [selectedID, setSelectedID] = React.useState();
+  const dispatch = useDispatch();
+
+  const { projects, activeProject } = useSelector((state) => ({
+    projects: state.projectReducer.projects,
+    activeProject: state.projectReducer.activeProject,
+  }));
 
   const selectProjectCB = React.useCallback(
     (projectID) => {
-      selectHandler && selectHandler(projectID);
-      setSelectedID(projectID);
+      const project = projects.find((project) => {
+        return projectID === project._id;
+      });
+      dispatch(setActiveProject(project));
     },
-    [selectHandler, setSelectedID]
+    [dispatch, projects]
   );
 
   return (
@@ -27,7 +35,7 @@ function MWProjectList(props) {
             <ListItem
               button
               key={i}
-              selected={project._id === selectedID}
+              selected={project._id === activeProject._id}
               onClick={() => selectProjectCB(project._id)}
             >
               <ListItemText primary={project.name} />
@@ -38,10 +46,5 @@ function MWProjectList(props) {
     </Box>
   );
 }
-
-MWProjectList.propTypes = {
-  projects: PropTypes.array, // Elements are objects with key and value props
-  selectHandler: PropTypes.func,
-};
 
 export default MWProjectList;

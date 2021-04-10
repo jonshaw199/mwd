@@ -18,6 +18,8 @@ const global = {
       noHeading: 6 * SPACING_MULTIPLIER,
       headingAndDiv: 0.75 * SPACING_MULTIPLIER,
       card: 0.55 * SPACING_MULTIPLIER,
+      cardInner: 1.5 * SPACING_MULTIPLIER,
+      button: 3 * SPACING_MULTIPLIER,
     },
     opacity: {
       footerOpacity: 0.33,

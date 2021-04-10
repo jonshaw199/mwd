@@ -8,6 +8,7 @@ import Step from "@material-ui/core/Step";
 import StepLabel from "@material-ui/core/StepLabel";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
+import PropTypes from "prop-types";
 
 import MWPhoneInput from "./MWPhoneInput";
 import Validation from "../api/Validation";
@@ -28,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function MWContactForm() {
+function MWContactForm({ sendHandler }) {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
   const [emailInvalid, setEmailInvalid] = React.useState(false);
@@ -46,6 +47,15 @@ function MWContactForm() {
 
   const handleNext = () => {
     if (!phoneInvalid && !emailInvalid) {
+      activeStep >= steps.length - 2 &&
+        sendHandler &&
+        sendHandler({
+          firstName,
+          lastName,
+          email: emailAddress,
+          phone: phoneNumberUnmasked,
+          message,
+        });
       setActiveStep((prevActiveStep) =>
         Math.min(prevActiveStep + 1, steps.length - 1)
       );
@@ -57,8 +67,17 @@ function MWContactForm() {
   };
 
   /*
-  const handleReset = () => {
-    setActiveStep(0);
+  const clearEverything = () => {
+    setFirstName("");
+    setLastName("");
+    setEmailAddress("");
+    setPhoneNumberMasked("");
+    setPhoneNumberUnmasked("");
+    setMessage("");
+    setEmailInvalid(false);
+    setPhoneInvalid(false);
+    setInvalidEmailMessage("");
+    setInvalidPhoneMessage("");
   };
   */
 
@@ -244,6 +263,8 @@ function MWContactForm() {
   );
 }
 
-MWContactForm.propTypes = {};
+MWContactForm.propTypes = {
+  sendHandler: PropTypes.func,
+};
 
 export default MWContactForm;

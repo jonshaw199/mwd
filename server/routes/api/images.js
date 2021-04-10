@@ -4,6 +4,7 @@ const multer = require("multer");
 
 const Image = require("../../models/Image");
 const auth = require("../../middleware/auth");
+const Constants = require("../../constants");
 
 /*
 const storage = multer.diskStorage({
@@ -18,7 +19,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage }).single("file");
 */
 
-const imagesRelativeToPublic = "/images";
+const imagesRelativeToPublic = Constants.imagesRelativeToPublic;
 const upload = multer({ dest: `public${imagesRelativeToPublic}` });
 
 router.get("/", async (req, res) => {
@@ -34,9 +35,21 @@ router.get("/:id", async (req, res) => {
 /*
   Private routes
 */
-router.put("/:id", auth, async (req, res) => {
+router.put("/:id", auth, upload.single("mwImage"), async (req, res) => {
   try {
-    const data = await Image.findByIdAndUpdate(req.params.id, req.body, {
+    let updatedImage = {};
+    if (req.file) {
+      updatedImage.filePath = imagesRelativeToPublic;
+      updatedImage.fileName = req.file.filename;
+      updatedImage.originalFileName = req.file.originalname;
+    }
+    if (req.body.name) {
+      updatedImage.name = req.body.name;
+    }
+    if (req.body.description) {
+      updatedImage.description = req.body.description;
+    }
+    const data = await Image.findByIdAndUpdate(req.params.id, updatedImage, {
       new: true,
     });
     return res.status(200).json({ data });

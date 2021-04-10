@@ -47,8 +47,10 @@ router.post("/", async function (req, res, next) {
       }
     );
     return res.status(200).json({
-      token,
-      data,
+      data: {
+        token,
+        user: data,
+      },
     });
   });
 });

@@ -10,6 +10,7 @@ import adminReducer from "./adminReducer";
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
 import quoteDialogReducer from "./quoteDialogReducer";
+import messageReducer from "./messageReducer";
 
 const initialState = {};
 
@@ -32,4 +33,5 @@ export default combineReducers({
   authReducer,
   userReducer,
   quoteDialogReducer,
+  messageReducer,
 });

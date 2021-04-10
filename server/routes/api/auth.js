@@ -3,16 +3,19 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
+const multer = require("multer");
+const upload = multer();
 
 const constants = require("../../constants");
 const auth = require("../../middleware/auth");
 
 router.get("/user", auth, async (req, res) => {
   const data = await User.findById(req.user.id).select("-password");
-  return res.status(200).json({ data });
+  const response = { token: req.headers[constants.authTokenName], user: data };
+  return res.status(200).json({ data: response });
 });
 
-router.post("/", async (req, res) => {
+router.post("/", upload.none(), async (req, res) => {
   const { username, password } = req.body;
   const user = await User.findOne({ username }).exec();
   if (!user)
