@@ -9,7 +9,8 @@
     "server-and-user-client": "concurrently \"npm run server\" \"npm run user-client\"",
     "server-and-admin-client": "concurrently \"npm run server\" \"npm run admin-client\"",
     "all": "concurrently \"npm run server\" \"npm run user-client\" \"npm run admin-client\"",
-    "heroku-postbuild": "npm run heroku-postbuild --prefix server"
+    "heroku-postbuild": "npm run heroku-postbuild --prefix server",
+    "start": "cd server && node ./bin/www"
   },
   "author": "Jon Shaw",
   "license": "ISC",
