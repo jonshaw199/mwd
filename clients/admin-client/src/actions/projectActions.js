@@ -21,6 +21,12 @@ import {
   MAKE_PRIMARY_PROJECT_IMAGE_LOADING,
   MAKE_PRIMARY_PROJECT_IMAGE_FAILURE,
   MAKE_PRIMARY_PROJECT_IMAGE_SUCCESS,
+  DELETE_PROJECT_LOADING,
+  DELETE_PROJECT_FAILURE,
+  DELETE_PROJECT_SUCCESS,
+  MOVE_PROJECT_LOADING,
+  MOVE_PROJECT_FAILURE,
+  MOVE_PROJECT_SUCCESS,
 } from "./types";
 import Projects from "../api/Projects";
 
@@ -57,14 +63,11 @@ export const createProject = (projectData) => async (dispatch, getState) => {
     dispatch({ type: CREATE_PROJECT_FAILURE, data });
   } else {
     dispatch({ type: CREATE_PROJECT_SUCCESS, data });
-    getProjects(); // Should I do this? TBD
+    dispatch(refreshProjects());
   }
 };
 
-export const updateProject = (projectData, successCB) => async (
-  dispatch,
-  getState
-) => {
+export const updateProject = (projectData) => async (dispatch, getState) => {
   dispatch({ type: UPDATE_PROJECT_LOADING });
   const data = await Projects.updateProject(
     projectData,
@@ -74,7 +77,7 @@ export const updateProject = (projectData, successCB) => async (
     dispatch({ type: UPDATE_PROJECT_FAILURE, data });
   } else {
     dispatch({ type: UPDATE_PROJECT_SUCCESS, data });
-    successCB && successCB(data);
+    dispatch(refreshProjects());
   }
 };
 
@@ -98,10 +101,7 @@ export const refreshProjects = () => async (dispatch, getState) => {
   }
 };
 
-export const createProjectImage = (imageData, successCB) => async (
-  dispatch,
-  getState
-) => {
+export const createProjectImage = (imageData) => async (dispatch, getState) => {
   dispatch({ type: CREATE_PROJECT_IMAGE_LOADING });
   const data = await Projects.createProjectImage(
     imageData,
@@ -111,11 +111,11 @@ export const createProjectImage = (imageData, successCB) => async (
     dispatch({ type: CREATE_PROJECT_IMAGE_FAILURE, data });
   } else {
     dispatch({ type: CREATE_PROJECT_IMAGE_SUCCESS, data });
-    successCB && successCB(data);
+    dispatch(refreshProjects());
   }
 };
 
-export const deleteProjectImage = (imageID, projectID, successCB) => async (
+export const deleteProjectImage = (imageID, projectID) => async (
   dispatch,
   getState
 ) => {
@@ -128,16 +128,14 @@ export const deleteProjectImage = (imageID, projectID, successCB) => async (
     dispatch({ type: DELETE_PROJECT_IMAGE_FAILURE, data });
   } else {
     dispatch({ type: DELETE_PROJECT_IMAGE_SUCCESS, data });
-    successCB && successCB(data);
+    dispatch(refreshProjects());
   }
 };
 
-export const moveProjectImage = (
-  imageID,
-  projectID,
-  direction,
-  successCB
-) => async (dispatch, getState) => {
+export const moveProjectImage = (imageID, projectID, direction) => async (
+  dispatch,
+  getState
+) => {
   dispatch({ type: MOVE_PROJECT_IMAGE_LOADING });
   const data = await Projects.moveProjectImage(
     { projectID, imageID, direction },
@@ -147,15 +145,14 @@ export const moveProjectImage = (
     dispatch({ type: MOVE_PROJECT_IMAGE_FAILURE, data });
   } else {
     dispatch({ type: MOVE_PROJECT_IMAGE_SUCCESS, data });
-    successCB && successCB(data);
+    dispatch(refreshProjects());
   }
 };
 
-export const makePrimaryProjectImage = (
-  imageID,
-  projectID,
-  successCB
-) => async (dispatch, getState) => {
+export const makePrimaryProjectImage = (imageID, projectID) => async (
+  dispatch,
+  getState
+) => {
   dispatch({ type: MAKE_PRIMARY_PROJECT_IMAGE_LOADING });
   const data = await Projects.makePrimaryProjectImage(
     { projectID, imageID },
@@ -165,6 +162,37 @@ export const makePrimaryProjectImage = (
     dispatch({ type: MAKE_PRIMARY_PROJECT_IMAGE_FAILURE, data });
   } else {
     dispatch({ type: MAKE_PRIMARY_PROJECT_IMAGE_SUCCESS, data });
-    successCB && successCB(data);
+    dispatch(refreshProjects());
+  }
+};
+
+export const deleteProject = (projectID) => async (dispatch, getState) => {
+  dispatch({ type: DELETE_PROJECT_LOADING });
+  const data = await Projects.deleteProject(
+    projectID,
+    getState().userReducer.currentUser.token
+  );
+  if (data.errors && data.errors.length) {
+    dispatch({ type: DELETE_PROJECT_FAILURE, data });
+  } else {
+    dispatch({ type: DELETE_PROJECT_SUCCESS, data });
+    dispatch(refreshProjects());
+  }
+};
+
+export const moveProject = (projectID, direction) => async (
+  dispatch,
+  getState
+) => {
+  dispatch({ type: MOVE_PROJECT_LOADING });
+  const data = await Projects.moveProject(
+    { projectID, direction },
+    getState().userReducer.currentUser.token
+  );
+  if (data.errors && data.errors.length) {
+    dispatch({ type: MOVE_PROJECT_FAILURE, data });
+  } else {
+    dispatch({ type: MOVE_PROJECT_SUCCESS, data });
+    dispatch(refreshProjects());
   }
 };

@@ -7,6 +7,15 @@ const cors = require("cors");
 const dotenv = require("dotenv");
 const fs = require("fs");
 
+// First try to use the .env.local file; if one doesnt exist then fall back to the default .env file
+const result = dotenv.config({ path: __dirname + "/.env.local" });
+if (result.error) {
+  dotenv.config();
+}
+
+// Dont delete me
+require("./utils/mongo");
+
 // Client Routers
 const adminClientRouter = require("./routes/adminClient");
 const userClientRouter = require("./routes/userClient");
@@ -21,15 +30,6 @@ const validationRouter = require("./routes/api/validation");
 const messagesRouter = require("./routes/api/messages");
 
 const app = express();
-
-// First try to use the .env.local file; if one doesnt exist then fall back to the default .env file
-const result = dotenv.config({ path: __dirname + "/.env.local" });
-if (result.error) {
-  dotenv.config();
-}
-
-// Dont delete me
-require("./utils/mongo");
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));

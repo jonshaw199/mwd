@@ -4,19 +4,18 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import "fontsource-roboto";
-import "fontsource-playfair-display";
-import "fontsource-quicksand";
+import "@fontsource/montserrat";
 import { Provider as StoreProvider } from "react-redux";
 import store from "./store";
 
 import { getPreferences } from "./actions/preferencesActions";
 import { getProjects } from "./actions/projectActions";
-import { getUser } from "./actions/userActions";
+// import { getUser } from "./actions/userActions";
 
 // Initialize app
 store.dispatch(getPreferences());
 store.dispatch(getProjects());
-store.dispatch(getUser());
+// store.dispatch(getUser());
 
 ReactDOM.render(
   /* <React.StrictMode> */

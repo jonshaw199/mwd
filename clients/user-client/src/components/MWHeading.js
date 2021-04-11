@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "uppercase",
   },
   bigLetter: {
-    fontSize: "125%",
+    fontSize: "105%",
   },
 }));
 

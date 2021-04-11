@@ -5,6 +5,9 @@ const light = {
   ...global,
   palette: {
     type: "light",
+    primary: {
+      main: "#c23c25",
+    },
     custom: {
       background: {
         innerCard: "#fefefe",

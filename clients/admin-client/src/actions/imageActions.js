@@ -7,11 +7,9 @@ import {
   UPDATE_IMAGE_SUCCESS,
 } from "./types";
 import Images from "../api/Images";
+import { refreshProjects } from "./projectActions";
 
-export const createImage = (imgData, successCB) => async (
-  dispatch,
-  getState
-) => {
+export const createImage = (imgData) => async (dispatch, getState) => {
   dispatch({ type: CREATE_IMAGE_LOADING });
   const data = await Images.createImage(
     imgData,
@@ -21,14 +19,11 @@ export const createImage = (imgData, successCB) => async (
     dispatch({ type: CREATE_IMAGE_FAILURE, data });
   } else {
     dispatch({ type: CREATE_IMAGE_SUCCESS, data });
-    successCB && successCB(data);
+    dispatch(refreshProjects());
   }
 };
 
-export const updateImage = (imgData, successCB) => async (
-  dispatch,
-  getState
-) => {
+export const updateImage = (imgData) => async (dispatch, getState) => {
   dispatch({ type: UPDATE_IMAGE_LOADING });
   const data = await Images.updateImage(
     imgData,
@@ -38,6 +33,6 @@ export const updateImage = (imgData, successCB) => async (
     dispatch({ type: UPDATE_IMAGE_FAILURE, data });
   } else {
     dispatch({ type: UPDATE_IMAGE_SUCCESS, data });
-    successCB && successCB(data);
+    dispatch(refreshProjects());
   }
 };

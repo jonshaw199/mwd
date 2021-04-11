@@ -5,8 +5,16 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import { useTheme } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
+import Button from "@material-ui/core/Button";
+import AddIcon from "@material-ui/icons/Add";
 
-import { setActiveProject } from "../actions/projectActions";
+import {
+  setActiveProject,
+  moveProject,
+  deleteProject,
+  createProject,
+} from "../actions/projectActions";
+import MWMoreVertButton from "./MWMoreVertButton";
 
 function MWProjectList() {
   const theme = useTheme();
@@ -27,6 +35,22 @@ function MWProjectList() {
     [dispatch, projects]
   );
 
+  const makeDeleteCB = (projectID) => {
+    return () => {
+      dispatch(deleteProject(projectID));
+    };
+  };
+
+  const makeMoveCB = (projectID) => {
+    return (direction) => {
+      dispatch(moveProject(projectID, direction));
+    };
+  };
+
+  const handleNewCB = React.useCallback(() => {
+    dispatch(createProject());
+  }, [dispatch]);
+
   return (
     <Box p={theme.custom.spacing.appBody}>
       {projects && (
@@ -35,14 +59,32 @@ function MWProjectList() {
             <ListItem
               button
               key={i}
-              selected={project._id === activeProject._id}
+              selected={
+                activeProject &&
+                activeProject._id &&
+                project._id === activeProject._id
+              }
               onClick={() => selectProjectCB(project._id)}
             >
               <ListItemText primary={project.name} />
+              <MWMoreVertButton
+                moveHandler={makeMoveCB(project._id)}
+                deleteHandler={makeDeleteCB(project._id)}
+              />
             </ListItem>
           ))}
         </List>
       )}
+      <Box display="flex" justifyContent="flex-end" alignItems="center">
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<AddIcon />}
+          onClick={handleNewCB}
+        >
+          New
+        </Button>
+      </Box>
     </Box>
   );
 }

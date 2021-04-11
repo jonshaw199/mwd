@@ -22,7 +22,7 @@ const Projects = () => {
         <Grid item xs={12} sm={6}>
           <Box p={theme.custom.spacing.card}>
             <Paper>
-              <Box p={theme.custom.spacing.appBody}>
+              <Box p={theme.custom.spacing.cardInner}>
                 <MWProjectList />
               </Box>
             </Paper>

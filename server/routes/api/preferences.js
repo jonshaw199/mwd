@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const mongoose = require("mongoose");
+
+const auth = require("../../middleware/auth");
 const Preferences = require("../../models/Preferences");
 
 router.get("/", async (req, res) => {
@@ -8,7 +10,7 @@ router.get("/", async (req, res) => {
   return res.status(200).json({ data: result });
 });
 
-router.put("/", async (req, res) => {
+router.put("/", auth, async (req, res) => {
   Preferences.findOneAndUpdate({}, req.body, (error, data) => {
     return res.status(200).json({ data });
   });

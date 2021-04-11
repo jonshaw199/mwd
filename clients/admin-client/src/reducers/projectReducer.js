@@ -21,6 +21,12 @@ import {
   MAKE_PRIMARY_PROJECT_IMAGE_LOADING,
   MAKE_PRIMARY_PROJECT_IMAGE_FAILURE,
   MAKE_PRIMARY_PROJECT_IMAGE_SUCCESS,
+  DELETE_PROJECT_LOADING,
+  DELETE_PROJECT_FAILURE,
+  DELETE_PROJECT_SUCCESS,
+  MOVE_PROJECT_LOADING,
+  MOVE_PROJECT_FAILURE,
+  MOVE_PROJECT_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -46,6 +52,12 @@ const initialState = {
   makePrimaryImageLoading: false,
   makePrimaryImageErrors: [],
   newPrimaryImage: {},
+  deletedProject: {},
+  deleteProjectLoading: false,
+  deleteProjectErrors: [],
+  movedProject: {},
+  moveProjectLoading: false,
+  moveProjectErrors: [],
 };
 
 const projectReducer = (state = initialState, action) => {
@@ -187,6 +199,44 @@ const projectReducer = (state = initialState, action) => {
         makePrimaryImageLoading: false,
         makePrimaryImageErrors: [],
         newPrimaryImage: action.data.data,
+      };
+    case DELETE_PROJECT_LOADING:
+      return {
+        ...state,
+        deleteProjectLoading: true,
+        deleteProjectErrors: [],
+      };
+    case DELETE_PROJECT_FAILURE:
+      return {
+        ...state,
+        deleteProjectLoading: false,
+        deleteProjectErrors: action.data.errors,
+      };
+    case DELETE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        deleteProjectLoading: false,
+        deleteProjectErrors: [],
+        deletedProject: action.data.data,
+      };
+    case MOVE_PROJECT_LOADING:
+      return {
+        ...state,
+        moveProjectLoading: true,
+        moveProjectErrors: [],
+      };
+    case MOVE_PROJECT_FAILURE:
+      return {
+        ...state,
+        moveProjectLoading: false,
+        moveProjectErrors: action.data.errors,
+      };
+    case MOVE_PROJECT_SUCCESS:
+      return {
+        ...state,
+        moveProjectLoading: false,
+        moveProjectErrors: [],
+        movedProject: action.data.data,
       };
     default:
       return state;

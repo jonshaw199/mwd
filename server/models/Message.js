@@ -24,6 +24,13 @@ const MessageSchema = new Schema(
       type: String,
       trim: true,
     },
+    postDate: {
+      type: Date,
+      required: true,
+    },
+    sendDate: {
+      type: Date,
+    },
   },
   { collection: "message" }
 );

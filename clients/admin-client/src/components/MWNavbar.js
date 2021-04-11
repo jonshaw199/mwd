@@ -2,7 +2,6 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import { useDispatch, useSelector } from "react-redux";
 import Box from "@material-ui/core/Box";
@@ -10,10 +9,12 @@ import Hidden from "@material-ui/core/Hidden";
 
 import { toggleDrawer } from "../actions/drawerActions";
 import MWDatetime from "./MWDatetime";
+import Constants from "../Constants";
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
     zIndex: theme.zIndex.navbar,
+    backgroundColor: theme.palette.primary.main,
   },
   sessionInfoItem: {
     paddingLeft: "15px",
@@ -26,6 +27,10 @@ const useStyles = makeStyles((theme) => ({
     fontSize: "11px",
     fontWeight: 400,
     paddingLeft: "5px",
+  },
+  logoImage: {
+    width: "100px",
+    height: "auto",
   },
 }));
 
@@ -44,14 +49,12 @@ const MWNavbar = () => {
         <Grid container>
           <Grid item xs={6} sm={2}>
             <Box display="flex" alignItems="center" height={1}>
-              <Button
-                variant="text"
-                color="inherit"
-                aria-label="menu"
+              <img
+                src={Constants.staticFiles.logo}
+                className={classes.logoImage}
                 onClick={toggleDrawerCB}
-              >
-                Logo
-              </Button>
+                alt="MWD Logo"
+              />
             </Box>
           </Grid>
           <Grid item xs={6} sm={10}>

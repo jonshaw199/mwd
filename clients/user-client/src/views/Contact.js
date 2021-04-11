@@ -36,17 +36,14 @@ function Contact() {
       <Grid container>
         <Grid item xs={12} md={6}>
           <Box p={theme.custom.spacing.appBody}>
-            <MWHeading text="Contact Info" position="left" />
+            <MWHeading text="Contact Info" />
             {preferences &&
               preferences.content &&
-              preferences.content.contact &&
-              preferences.content.contact.length > 0 && (
+              preferences.content.contact1 &&
+              preferences.content.contact1.length > 0 && (
                 <Box mt={theme.custom.spacing.verticalHeading}>
                   <Typography variant={theme.custom.typography.body}>
-                    Lorem ipsum dolor sit amet, inani nonumes fabellas sit id,
-                    duo dicat exerci persius an, te inani mollis conclusionemque
-                    eos. Hinc quaeque mei eu, qui et sumo evertitur moderatius,
-                    cu usu natum pertinacia intellegam.
+                    {preferences.content.contact1}
                   </Typography>
                 </Box>
               )}
@@ -85,7 +82,7 @@ function Contact() {
         </Grid>
         <Grid item xs={12} md={6}>
           <Box p={theme.custom.spacing.appBody}>
-            <MWHeading text="Send Us A Message" position="left" />
+            <MWHeading text="Send Us A Message" />
             <Box mt={theme.custom.spacing.verticalHeading}>
               <MWContactForm sendHandler={handleSendCB} />
             </Box>

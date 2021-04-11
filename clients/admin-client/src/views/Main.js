@@ -8,6 +8,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import Box from "@material-ui/core/Box";
 import { useSelector } from "react-redux";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import CreateIcon from "@material-ui/icons/Create";
 
 import MWNavbar from "../components/MWNavbar";
 import MWDrawer from "../components/MWDrawer";
@@ -15,6 +16,7 @@ import Dashboard from "./main/Dashboard";
 import CompanyInfo from "./main/CompanyInfo";
 import Projects from "./main/Projects";
 import Users from "./main/Users";
+import Content from "./main/Content";
 
 function Main() {
   const { theme, inverseTheme } = useSelector((state) => ({
@@ -50,6 +52,18 @@ function Main() {
       },
       icon: () => {
         return <InfoIcon />;
+      },
+    },
+    {
+      home: false,
+      shortName: "content",
+      longName: "Content",
+      route: "/content",
+      component: () => {
+        return <Content />;
+      },
+      icon: () => {
+        return <CreateIcon />;
       },
     },
     {

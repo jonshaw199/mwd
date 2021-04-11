@@ -1,10 +1,16 @@
 const express = require("express");
 const router = express.Router();
+
 const Project = require("../../models/Project");
 const Image = require("../../models/Image");
-
+const Preferences = require("../../models/Preferences");
 const auth = require("../../middleware/auth");
 const Constants = require("../../constants");
+const {
+  deleteProject: deleteProjectFromPrefs,
+  moveProject: moveProjectInPrefs,
+  createProject: createProjectInPrefs,
+} = require("../../services/preferences/service.preferences.common");
 
 router.get("/", async (req, res) => {
   try {
@@ -15,12 +21,14 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/sorted", async (req, res) => {
   try {
-    const data = await Project.findById(req.params.id).populate(
-      "primaryImage images"
-    );
-    return res.status(200).json({ data });
+    const preferences = await Preferences.findOne().populate({
+      path: "content.projects",
+      model: "Project",
+      populate: { path: "images primaryImage", model: "Image" },
+    });
+    return res.status(200).json({ data: preferences.content.projects });
   } catch (e) {
     return res.status(500).json({ errors: e });
   }
@@ -29,16 +37,11 @@ router.get("/:id", async (req, res) => {
 /*
   Private routes
 */
-router.post("/", auth, async (req, res) => {
-  const { name, description, primaryImage, images } = req.body;
-  const newProject = new Project({
-    name,
-    description,
-    primaryImage,
-    images,
-  });
+router.post("/", async (req, res) => {
+  const newProject = new Project(req.body);
   try {
     const data = await newProject.save();
+    await createProjectInPrefs(data._id);
     return res.status(200).json({ data });
   } catch (e) {
     return res.status(500).json({ errors: e });
@@ -57,10 +60,11 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/:id", auth, async (req, res) => {
-  const { id } = request.params;
+router.delete("/:projectID", async (req, res) => {
+  const { projectID } = req.params;
   try {
-    const data = await Project.findByIdAndDelete(id);
+    await deleteProjectFromPrefs(projectID);
+    const data = await Project.findById(projectID);
     return res.status(200).json({ data });
   } catch (e) {
     return res.status(500).json({ errors: e });
@@ -111,7 +115,7 @@ router.post("/:projectID/image/:imageID/move", auth, async (req, res) => {
       return res.status(500).json({ errors: ["Image ID provided is invalid"] });
     if (
       (imageIndex === 0 && direction.toLowerCase() === "up") ||
-      (imageIndex >= project.images.length &&
+      (imageIndex >= project.images.length - 1 &&
         direction.toLowerCase() === "down")
     )
       return res.status(500).json({ errors: ["Cant move image any further"] });
@@ -136,6 +140,17 @@ router.post("/:projectID/image/:imageID/primary", auth, async (req, res) => {
       { primaryImage: imageID },
       { new: true }
     );
+    return res.status(200).json({ data });
+  } catch (e) {
+    return res.status(500).json({ errors: e });
+  }
+});
+
+router.post("/:projectID/move", auth, async (req, res) => {
+  const { projectID } = req.params;
+  const { direction } = req.body;
+  try {
+    const data = await moveProjectInPrefs(projectID, direction);
     return res.status(200).json({ data });
   } catch (e) {
     return res.status(500).json({ errors: e });

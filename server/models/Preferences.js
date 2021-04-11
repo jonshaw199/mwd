@@ -1,6 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+require("./Project");
+
 const PreferencesSchema = new Schema(
   {
     companyInfo: {
@@ -9,7 +11,12 @@ const PreferencesSchema = new Schema(
         trim: true,
         required: true,
       },
-      phoneNumber: {
+      phoneMasked: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      phoneUnmasked: {
         type: String,
         trim: true,
         required: true,
@@ -20,7 +27,7 @@ const PreferencesSchema = new Schema(
         required: true,
       },
       address: {
-        streedAddress: {
+        streetAddress: {
           type: String,
           trim: true,
           required: true,
@@ -56,11 +63,17 @@ const PreferencesSchema = new Schema(
         trim: true,
         required: true,
       },
-      contact: {
+      contact1: {
         type: String,
         trim: true,
         required: true,
       },
+      contact2: {
+        type: String,
+        trim: true,
+        required: true,
+      },
+      projects: [{ type: Schema.Types.ObjectId, ref: "Project" }],
     },
     auth: {
       tokenExpiration: {

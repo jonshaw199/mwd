@@ -1,6 +1,7 @@
 const SPACING_MULTIPLIER = 1.0;
-const headingFontFamily = "Playfair Display";
-const bodyFontFamily = "Quicksand";
+const headingFontFamily = "Norwester";
+const subHeadingFontFamily = "Kollektif";
+const bodyFontFamily = "Montserrat";
 
 const global = {
   typography: {
@@ -17,10 +18,10 @@ const global = {
       fontFamily: headingFontFamily,
     },
     h5: {
-      fontFamily: headingFontFamily,
+      fontFamily: subHeadingFontFamily,
     },
     h6: {
-      fontFamily: headingFontFamily,
+      fontFamily: subHeadingFontFamily,
     },
     subtitle1: {
       fontFamily: bodyFontFamily,
@@ -65,7 +66,7 @@ const global = {
       footerOpacity: 0.33,
     },
     typography: {
-      heading: "h4",
+      heading: "h3",
       body: "body1",
       emphasizedBody: "",
     },

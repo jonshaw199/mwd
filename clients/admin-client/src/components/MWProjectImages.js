@@ -10,7 +10,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import MWProjectImage from "./MWProjectImage";
 import { updateImage } from "../actions/imageActions";
 import {
-  refreshProjects,
   createProjectImage,
   moveProjectImage,
   deleteProjectImage,
@@ -38,57 +37,36 @@ function MWProjectImages(props) {
     setTmpActiveProject(activeProject);
   }, [activeProject]);
 
-  const refreshProjectsCB = React.useCallback(() => {
-    dispatch(refreshProjects());
-  }, [dispatch]);
-
   const handleSaveCB = React.useCallback(
     (data) => {
-      dispatch(updateImage(data, refreshProjectsCB));
+      dispatch(updateImage(data));
     },
-    [dispatch, refreshProjectsCB]
+    [dispatch]
   );
 
   const handleNewCB = React.useCallback(() => {
-    dispatch(
-      createProjectImage({ _id: tmpActiveProject._id }, refreshProjectsCB)
-    );
-  }, [dispatch, refreshProjectsCB, tmpActiveProject]);
+    dispatch(createProjectImage({ _id: tmpActiveProject._id }));
+  }, [dispatch, tmpActiveProject]);
 
   const handleMoveCB = React.useCallback(
     (imageID, direction) => {
-      dispatch(
-        moveProjectImage(
-          imageID,
-          tmpActiveProject._id,
-          direction,
-          refreshProjectsCB
-        )
-      );
+      dispatch(moveProjectImage(imageID, tmpActiveProject._id, direction));
     },
-    [dispatch, refreshProjectsCB, tmpActiveProject]
+    [dispatch, tmpActiveProject]
   );
 
   const handleDeleteCB = React.useCallback(
     (imageID) => {
-      dispatch(
-        deleteProjectImage(imageID, tmpActiveProject._id, refreshProjectsCB)
-      );
+      dispatch(deleteProjectImage(imageID, tmpActiveProject._id));
     },
-    [dispatch, refreshProjectsCB, tmpActiveProject]
+    [dispatch, tmpActiveProject]
   );
 
   const handleNewPrimaryCB = React.useCallback(
     (imageID) => {
-      dispatch(
-        makePrimaryProjectImage(
-          imageID,
-          tmpActiveProject._id,
-          refreshProjectsCB
-        )
-      );
+      dispatch(makePrimaryProjectImage(imageID, tmpActiveProject._id));
     },
-    [dispatch, refreshProjectsCB, tmpActiveProject]
+    [dispatch, tmpActiveProject]
   );
 
   return (
@@ -127,7 +105,7 @@ function MWProjectImages(props) {
           startIcon={<AddIcon />}
           onClick={handleNewCB}
         >
-          New Image
+          New
         </Button>
       </Box>
     </Box>

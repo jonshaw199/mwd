@@ -1,3 +1,16 @@
+@font-face {
+  font-family: "Norwester";
+  src: local("Norwester"),
+    url(./fonts/norwester/norwester.otf) format("opentype");
+  /* other formats include: 'woff2', 'truetype, 'opentype', 'embedded-opentype', and 'svg' */
+}
+
+@font-face {
+  font-family: "Kollektif";
+  src: local("Kollektif"),
+    url(./fonts/kollektif/Kollektif.ttf) format("truetype");
+}
+
 body {
   margin: 0;
   font-family: "Arial";

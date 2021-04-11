@@ -6,7 +6,7 @@ import Button from "@material-ui/core/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { updateProject, refreshProjects } from "../actions/projectActions";
+import { updateProject } from "../actions/projectActions";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -52,14 +52,10 @@ function MWProjectInfo() {
     }
   }, [tmpActiveProject, name, description]);
 
-  const refreshProjectsCB = React.useCallback(() => {
-    dispatch(refreshProjects());
-  }, [dispatch]);
-
   const handleSaveCB = React.useCallback(() => {
     const project = { ...tmpActiveProject, name, description };
-    dispatch(updateProject(project, refreshProjectsCB));
-  }, [dispatch, tmpActiveProject, description, name, refreshProjectsCB]);
+    dispatch(updateProject(project));
+  }, [dispatch, tmpActiveProject, description, name]);
 
   const handleCancelCB = React.useCallback(() => {
     setName(

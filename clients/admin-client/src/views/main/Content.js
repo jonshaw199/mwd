@@ -4,9 +4,10 @@ import Grid from "@material-ui/core/Grid";
 import { useTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 
-import MWRegisterUserForm from "../../components/MWRegisterUserForm";
+import MWContactContent from "../../components/MWContactContent";
+import MWAboutContent from "../../components/MWAboutContent";
 
-const Users = () => {
+const Content = () => {
   const theme = useTheme();
 
   return (
@@ -16,7 +17,7 @@ const Users = () => {
           <Box p={theme.custom.spacing.card}>
             <Paper>
               <Box p={theme.custom.spacing.cardInner}>
-                <MWRegisterUserForm />
+                <MWAboutContent />
               </Box>
             </Paper>
           </Box>
@@ -24,7 +25,9 @@ const Users = () => {
         <Grid item xs={12}>
           <Box p={theme.custom.spacing.card}>
             <Paper>
-              <Box p={theme.custom.spacing.cardInner}>To Do</Box>
+              <Box p={theme.custom.spacing.cardInner}>
+                <MWContactContent />
+              </Box>
             </Paper>
           </Box>
         </Grid>
@@ -33,4 +36,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Content;
