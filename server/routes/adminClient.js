@@ -4,7 +4,7 @@ var path = require("path");
 
 const auth = require("../middleware/auth");
 
-router.get("/", auth, async (req, res) => {
+router.get("/", async (req, res) => {
   router.use(
     express.static(
       path.join(__dirname, "..", "..", "clients/admin-client/build")
