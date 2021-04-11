@@ -22,10 +22,10 @@ function App() {
     <ThemeProvider theme={theme}>
       <Router>
         <Switch>
-          <Route exact path="/" key="login">
-            <Login mainAppPath={mainAppPath} />
+          <Route path="/admin" key="login">
+            <Login mainAppPath="/authenticated" />
           </Route>
-          <Route path={mainAppPath} key="main">
+          <Route path="/authenticated" key="main">
             <Main />
           </Route>
         </Switch>

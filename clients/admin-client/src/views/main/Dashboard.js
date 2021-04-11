@@ -20,13 +20,7 @@ const Dashboard = () => {
         <Grid item xs={12} sm={6}>
           <Box p={theme.custom.spacing.card}>
             <Paper>
-              <Box p={theme.custom.spacing.cardInner}>
-                <img
-                  src="/SamplePiChart.png"
-                  alt="Sample Pi Chart"
-                  style={{ width: "100%" }}
-                />
-              </Box>
+              <Box p={theme.custom.spacing.cardInner}>To Do</Box>
             </Paper>
           </Box>
         </Grid>

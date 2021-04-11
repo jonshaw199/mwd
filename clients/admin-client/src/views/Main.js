@@ -105,7 +105,7 @@ function Main() {
                 {views.map((view) => (
                   <Route
                     exact={view.home}
-                    path={`${path}${view.route}`}
+                    path={`/authenticated${view.route}`}
                     key={view.shortName}
                   >
                     {view.component()}

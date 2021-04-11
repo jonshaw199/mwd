@@ -2,8 +2,6 @@ const express = require("express");
 const router = express.Router();
 var path = require("path");
 
-const auth = require("../middleware/auth");
-
 router.get("/", async (req, res) => {
   router.use(
     express.static(
@@ -11,9 +9,7 @@ router.get("/", async (req, res) => {
     )
   );
   return res.sendFile(
-    path.resolve(
-      path.join(__dirname, "..", "..", "clients/admin-client/build/index.html")
-    )
+    path.resolve(__dirname + "/../../clients/admin-client/build/index.html")
   );
 });
 

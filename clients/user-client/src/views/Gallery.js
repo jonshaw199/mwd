@@ -77,7 +77,11 @@ const Gallery = (props) => {
               onClick={() => openImageDialogCB(project)}
             >
               <img
-                src={`${project.primaryImage.filePath}/${project.primaryImage.fileName}`}
+                src={
+                  project.primaryImage && project.primaryImage.filePath
+                    ? `${project.primaryImage.filePath}/${project.primaryImage.fileName}`
+                    : `${project.images[0].filePath}/${project.images[0].fileName}`
+                }
                 alt={project.name}
               />
               <GridListTileBar
