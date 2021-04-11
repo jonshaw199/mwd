@@ -3,8 +3,8 @@ import lightTheme from "../themes/LightTheme";
 import darkTheme from "../themes/DarkTheme";
 
 const initialState = {
-  theme: darkTheme,
-  inverseTheme: lightTheme,
+  theme: lightTheme,
+  inverseTheme: darkTheme,
 };
 
 const themeReducer = (state = initialState, action) => {

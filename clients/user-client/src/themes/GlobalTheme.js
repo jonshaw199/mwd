@@ -67,7 +67,7 @@ const global = {
     },
     typography: {
       heading: "h3",
-      body: "body1",
+      body: "body2",
       emphasizedBody: "",
     },
     width: {

@@ -8,7 +8,7 @@ import "./App.css";
 import Login from "./views/Login";
 import Main from "./views/Main";
 
-const mainAppPath = "/admin";
+const mainAppPath = "/authenticated";
 
 function App() {
   const { theme } = useSelector((state) => ({
@@ -23,9 +23,9 @@ function App() {
       <Router>
         <Switch>
           <Route path="/admin" key="login">
-            <Login mainAppPath="/authenticated" />
+            <Login mainAppPath={mainAppPath} />
           </Route>
-          <Route path="/authenticated" key="main">
+          <Route path={mainAppPath} key="main">
             <Main />
           </Route>
         </Switch>

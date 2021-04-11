@@ -5,6 +5,7 @@ import Box from "@material-ui/core/Box";
 
 import { closeQuoteDialog } from "../actions/quoteDialogActions";
 import MWContactForm from "./MWContactForm";
+import { sendMessage } from "../actions/messageActions";
 
 const MWAdminLoginDialog = () => {
   const dispatch = useDispatch();
@@ -17,15 +18,20 @@ const MWAdminLoginDialog = () => {
     dispatch(closeQuoteDialog());
   }, [dispatch]);
 
+  const handleSendCB = React.useCallback(
+    (imgData) => {
+      dispatch(sendMessage(imgData));
+    },
+    [dispatch]
+  );
+
   return (
     <Dialog open={quoteDialogOpen} onClose={closeQuoteDialogCB}>
       <Box py={2} px={3}>
-        <MWContactForm />
+        <MWContactForm sendHandler={handleSendCB} />
       </Box>
     </Dialog>
   );
 };
-
-// Prop types
 
 export default MWAdminLoginDialog;

@@ -214,7 +214,7 @@ function MWContactForm({ sendHandler }) {
         );
       default:
         return (
-          <Box p={5}>
+          <Box py={5}>
             Your message has been sent. Please allow up to 2 business days for a
             response.
           </Box>
@@ -235,7 +235,7 @@ function MWContactForm({ sendHandler }) {
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>
-                  <Typography variant="body2">{label}</Typography>
+                  <Typography variant="caption">{label}</Typography>
                 </StepLabel>
               </Step>
             ))}

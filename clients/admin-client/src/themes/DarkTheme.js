@@ -5,9 +5,11 @@ const dark = {
   ...global,
   palette: {
     type: "dark",
+    /*
     primary: {
       main: "#7d4834",
     },
+    */
     custom: {
       background: {
         innderCard: "#f7f7f7",

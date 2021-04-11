@@ -35,50 +35,45 @@ function Contact() {
     <Paper elevation={0}>
       <Grid container>
         <Grid item xs={12} md={6}>
-          <Box p={theme.custom.spacing.appBody}>
-            <MWHeading text="Contact Info" />
-            {preferences &&
-              preferences.content &&
-              preferences.content.contact1 &&
-              preferences.content.contact1.length > 0 && (
-                <Box mt={theme.custom.spacing.verticalHeading}>
-                  <Typography variant={theme.custom.typography.body}>
-                    {preferences.content.contact1}
-                  </Typography>
-                </Box>
-              )}
-            <Box my={theme.custom.spacing.aLittleExtra}>
-              <List dense>
-                <ListItem>
-                  <ListItemIcon>
-                    <PhoneIcon />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant={theme.custom.typography.body}>
-                      (916) 123-4567
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Email />
-                  </ListItemIcon>
-                  <ListItemText>
-                    <Typography variant={theme.custom.typography.body}>
-                      something@gmail.com
-                    </Typography>
-                  </ListItemText>
-                </ListItem>
-              </List>
+          {preferences && preferences.companyInfo && (
+            <Box p={theme.custom.spacing.appBody}>
+              <MWHeading text="Contact Us" />
+              <Box mt={theme.custom.spacing.verticalHeading}>
+                <Typography variant={theme.custom.typography.body}>
+                  {preferences.content.contact1}
+                </Typography>
+              </Box>
+              <Box my={theme.custom.spacing.aLittleExtra}>
+                <List dense>
+                  <ListItem>
+                    <ListItemIcon>
+                      <PhoneIcon />
+                    </ListItemIcon>
+                    <ListItemText>
+                      <Typography variant={theme.custom.typography.body}>
+                        {preferences.companyInfo.phoneMasked}
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemIcon>
+                      <Email />
+                    </ListItemIcon>
+                    <ListItemText>
+                      <Typography variant={theme.custom.typography.body}>
+                        {preferences.companyInfo.email}
+                      </Typography>
+                    </ListItemText>
+                  </ListItem>
+                </List>
+              </Box>
+              <Box>
+                <Typography variant={theme.custom.typography.body}>
+                  {preferences.content.contact2}
+                </Typography>
+              </Box>
             </Box>
-            <Box>
-              <Typography variant={theme.custom.typography.body}>
-                Has et falli comprehensam, te dicam voluptaria mei. In has
-                veniam civibus. Ut purto brute audire mei, in erat tation
-                liberavisse nec.
-              </Typography>
-            </Box>
-          </Box>
+          )}
         </Grid>
         <Grid item xs={12} md={6}>
           <Box p={theme.custom.spacing.appBody}>
@@ -89,9 +84,17 @@ function Contact() {
           </Box>
         </Grid>
       </Grid>
-      <Box my={theme.custom.spacing.verticalHeading}>
-        <MWMap center={{ lat: 38.6446, lng: -121.2722 }} zoom={10} />
-      </Box>
+      {preferences && preferences.companyInfo && (
+        <Box my={theme.custom.spacing.verticalHeading}>
+          <MWMap
+            center={{
+              lat: preferences.companyInfo.address.latitude,
+              lng: preferences.companyInfo.address.longitude,
+            }}
+            zoom={10}
+          />
+        </Box>
+      )}
     </Paper>
   );
 }

@@ -7,7 +7,6 @@ import { Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import MWLoginForm from "../components/MWLoginForm";
-import Constants from "../Constants";
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {

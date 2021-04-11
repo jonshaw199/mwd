@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: "5px",
   },
   logoImage: {
-    width: "100px",
+    width: "75px",
     height: "auto",
   },
 }));

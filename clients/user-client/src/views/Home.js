@@ -7,9 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Hidden from "@material-ui/core/Hidden";
 import Button from "@material-ui/core/Button";
-import LocalShippingIcon from "@material-ui/icons/LocalShipping";
-import CreateIcon from "@material-ui/icons/Create";
-import VerifiedUserIcon from "@material-ui/icons/VerifiedUser";
+import Avatar from "@material-ui/core/Avatar";
 
 import MWQuoteDialog from "../components/MWQuoteDialog";
 import { openQuoteDialog } from "../actions/quoteDialogActions";
@@ -17,6 +15,9 @@ import BruceLeeSignature from "../res/BruceLeeSignature.png";
 import MWHeading from "../components/MWHeading";
 
 const backgroundImage = require("../res/background.jpg");
+const avatarCustomImage = require("../res/AvatarCustomFab.jpg");
+const avatarMobileImage = require("../res/AvatarMobile.jpg");
+const avatarQualityImage = require("../res/AvatarQuality.jpg");
 
 const useStyles = makeStyles((theme) => ({
   fullPageImage: {
@@ -72,6 +73,11 @@ const useStyles = makeStyles((theme) => ({
   servicesGrid: {
     margin: 0,
     width: "100%",
+  },
+  mwAvatar: {
+    width: "150px",
+    height: "150px",
+    marginBottom: "1rem",
   },
 }));
 
@@ -149,8 +155,29 @@ const Home = () => {
                       </Button>
                     </Grid>
                     <Grid item>
-                      <Button variant="outlined" color="primary">
-                        Call: 123.456.7890
+                      <Button
+                        variant="outlined"
+                        color="primary"
+                        href={`tel:+${
+                          preferences && preferences.companyInfo
+                            ? preferences.companyInfo.phoneUnmasked
+                            : 1234567890
+                        }`}
+                      >
+                        Call:{" "}
+                        {preferences && preferences.companyInfo
+                          ? preferences.companyInfo.phoneUnmasked.substring(
+                              0,
+                              3
+                            ) +
+                            "." +
+                            preferences.companyInfo.phoneUnmasked.substring(
+                              3,
+                              6
+                            ) +
+                            "." +
+                            preferences.companyInfo.phoneUnmasked.substring(6)
+                          : "123.456.7890"}
                       </Button>
                     </Grid>
                   </Grid>
@@ -166,21 +193,22 @@ const Home = () => {
           Services
         */}
       <Box p={theme.custom.spacing.appBody} textAlign="center">
-        <MWHeading text={"Services"} />
+        <MWHeading text={"What We Do"} />
         <Box
           display="flex"
           justifyContent="center"
           mt={theme.custom.spacing.verticalHeading}
         >
-          <Box
-            width={1}
-            maxWidth={theme.custom.width.maxTextWidth}
-            mt={theme.custom.spacing.aLittleExtra}
-          >
+          <Box width={1} maxWidth={theme.custom.width.maxTextWidth}>
             <Grid container spacing={7} className={classes.servicesGrid}>
               <Grid item xs={12} md={4}>
                 <Box className={classes.serviceContainer}>
-                  <LocalShippingIcon className={classes.serviceIcon} />
+                  {/*<LocalShippingIcon className={classes.serviceIcon} />*/}
+                  <Avatar
+                    alt="Mobile Welding"
+                    src={avatarMobileImage}
+                    className={classes.mwAvatar}
+                  />
                   <Box justifyContent="center" alignItems="center">
                     <Box>
                       <Typography variant="h5">Mobile Welding</Typography>
@@ -196,7 +224,12 @@ const Home = () => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <Box className={classes.serviceContainer}>
-                  <CreateIcon className={classes.serviceIcon} />
+                  {/*<CreateIcon className={classes.serviceIcon} />*/}
+                  <Avatar
+                    alt="Custom Fabrication"
+                    src={avatarCustomImage}
+                    className={classes.mwAvatar}
+                  />
                   <Box justifyContent="center" alignItems="center">
                     <Box>
                       <Typography variant="h5">Custom Fabrication</Typography>
@@ -212,7 +245,12 @@ const Home = () => {
               </Grid>
               <Grid item xs={12} md={4}>
                 <Box className={classes.serviceContainer}>
-                  <VerifiedUserIcon className={classes.serviceIcon} />
+                  {/*<VerifiedUserIcon className={classes.serviceIcon} />*/}
+                  <Avatar
+                    alt="Unparalleled Quality"
+                    src={avatarQualityImage}
+                    className={classes.mwAvatar}
+                  />
                   <Box justifyContent="center" alignItems="center">
                     <Box>
                       <Typography variant="h5">Unparalleled Quality</Typography>
@@ -240,7 +278,7 @@ const Home = () => {
           preferences.content.about &&
           preferences.content.about.length > 0 && (
             <Box p={theme.custom.spacing.appBody}>
-              <MWHeading text={"Our Promise"} />
+              <MWHeading text={"About Us"} />
               <Box
                 display="flex"
                 justifyContent="center"

@@ -6,7 +6,7 @@ const light = {
   palette: {
     type: "light",
     primary: {
-      main: "#c23c25",
+      main: "#f5f2f0",
     },
     custom: {
       background: {
