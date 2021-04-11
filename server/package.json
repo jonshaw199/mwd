@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node ./bin/www",
     "debug": "nodemon --inspect ./bin/www",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i -g react-scripts && npm i --prefix ../clients/user-client && npm run build --prefix ../clients/user-client && npm i --prefix ..clients/admin-client && npm run build --prefix ../clients/admin-client"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm i --prefix ../clients/user-client && npm run build --prefix ../clients/user-client && npm i --prefix ../clients/admin-client && npm run build --prefix ../clients/admin-client"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
