@@ -126,16 +126,9 @@ const Home = () => {
                 width={1}
               >
                 <Box py={theme.custom.spacing.appBody} textAlign="center">
-                  <Hidden smUp>
-                    <Typography variant="h5">
-                      Proudly Serving Northern California For 20 Years
-                    </Typography>
-                  </Hidden>
-                  <Hidden xsDown>
-                    <Typography variant="h4">
-                      Proudly Serving Northern California For 20 Years
-                    </Typography>
-                  </Hidden>
+                  <Typography variant="h4">
+                    Proudly Serving Northern California For 20 Years
+                  </Typography>
                 </Box>
                 <Box py={theme.custom.spacing.appBody}>
                   <Grid
