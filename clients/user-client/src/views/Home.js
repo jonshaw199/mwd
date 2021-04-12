@@ -5,7 +5,6 @@ import { useTheme } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import Hidden from "@material-ui/core/Hidden";
 import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 
@@ -41,17 +40,12 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
   signatureContainer: {
+    textAlign: "left",
     [theme.breakpoints.up(200)]: {
-      paddingRight: "2rem",
+      paddingRight: "1rem",
     },
     [theme.breakpoints.up("sm")]: {
-      paddingRight: "4rem",
-    },
-    [theme.breakpoints.up("md")]: {
-      paddingRight: "8rem",
-    },
-    [theme.breakpoints.up("lg")]: {
-      paddingRight: "16rem",
+      paddingRight: "2rem",
     },
   },
   signature: {
@@ -284,32 +278,32 @@ const Home = () => {
                   <Typography variant={theme.custom.typography.body}>
                     {preferences.content.about}
                   </Typography>
-                </Box>
-              </Box>
-              <Box
-                display="flex"
-                justifyContent="center"
-                mt={theme.custom.spacing.noHeading}
-              >
-                <Box display="flex" justifyContent="flex-end" width={1}>
-                  <Box className={classes.signatureContainer}>
-                    <Box>
-                      <Box>
-                        <Typography variant={theme.custom.typography.body}>
-                          Spencer May,
-                        </Typography>
-                      </Box>
-                      <Box>
-                        <img
-                          src={BruceLeeSignature}
-                          alt="Signature"
-                          className={classes.signature}
-                        />
-                      </Box>
-                      <Box>
-                        <Typography variant={theme.custom.typography.body}>
-                          Owner/Operator
-                        </Typography>
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    mt={theme.custom.spacing.noHeading}
+                  >
+                    <Box display="flex" justifyContent="flex-end" width={1}>
+                      <Box className={classes.signatureContainer}>
+                        <Box>
+                          <Box>
+                            <Typography variant={theme.custom.typography.body}>
+                              Spencer May,
+                            </Typography>
+                          </Box>
+                          <Box>
+                            <img
+                              src={BruceLeeSignature}
+                              alt="Signature"
+                              className={classes.signature}
+                            />
+                          </Box>
+                          <Box>
+                            <Typography variant={theme.custom.typography.body}>
+                              Owner/Operator
+                            </Typography>
+                          </Box>
+                        </Box>
                       </Box>
                     </Box>
                   </Box>
