@@ -11,6 +11,7 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import { useTheme } from "@material-ui/core/styles";
 import { useSelector, useDispatch } from "react-redux";
+import Link from "@material-ui/core/Link";
 
 import MWContactForm from "../components/MWContactForm";
 import MWMap from "../components/MWMap";
@@ -50,9 +51,13 @@ function Contact() {
                       <PhoneIcon />
                     </ListItemIcon>
                     <ListItemText>
-                      <Typography variant={theme.custom.typography.body}>
+                      <Link
+                        href={`tel:+${preferences.companyInfo.phoneUnmasked}`}
+                        variant="body1"
+                        color="secondary"
+                      >
                         {preferences.companyInfo.phoneMasked}
-                      </Typography>
+                      </Link>
                     </ListItemText>
                   </ListItem>
                   <ListItem>
@@ -60,9 +65,13 @@ function Contact() {
                       <Email />
                     </ListItemIcon>
                     <ListItemText>
-                      <Typography variant={theme.custom.typography.body}>
+                      <Link
+                        href={`mailto:${preferences.companyInfo.email}`}
+                        variant="body1"
+                        color="secondary"
+                      >
                         {preferences.companyInfo.email}
-                      </Typography>
+                      </Link>
                     </ListItemText>
                   </ListItem>
                 </List>

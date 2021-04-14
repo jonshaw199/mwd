@@ -2,12 +2,12 @@ import React from "react";
 import Box from "@material-ui/core/Box";
 import GridList from "@material-ui/core/GridList";
 import GridListTile from "@material-ui/core/GridListTile";
-import GridListTileBar from "@material-ui/core/GridListTileBar";
 import { useTheme } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import { useSelector, useDispatch } from "react-redux";
 
 import MWImageDialog from "../components/MWImageDialog";
+import MWGalleryImage from "../components/MWGalleryImage";
 import {
   openImageDialog,
   closeImageDialog,
@@ -72,21 +72,18 @@ const Gallery = (props) => {
         <GridList cellHeight={160} cols={numCols}>
           {projects.map((project, i) => (
             <GridListTile
-              key={i}
               cols={1}
               onClick={() => openImageDialogCB(project)}
+              key={i}
             >
-              <img
-                src={
+              <MWGalleryImage
+                imgSrc={
                   project.primaryImage && project.primaryImage.filePath
                     ? `${project.primaryImage.filePath}/${project.primaryImage.fileName}`
                     : `${project.images[0].filePath}/${project.images[0].fileName}`
                 }
-                alt={project.name}
-              />
-              <GridListTileBar
-                title={project.name}
-                subtitle={<span>{project.description}</span>}
+                projectName={project.name}
+                projectDescription={project.description}
               />
             </GridListTile>
           ))}
@@ -105,3 +102,24 @@ const Gallery = (props) => {
 };
 
 export default Gallery;
+
+/*
+<GridListTile
+  key={i}
+  cols={1}
+  onClick={() => openImageDialogCB(project)}
+>
+  <img
+    src={
+      project.primaryImage && project.primaryImage.filePath
+        ? `${project.primaryImage.filePath}/${project.primaryImage.fileName}`
+        : `${project.images[0].filePath}/${project.images[0].fileName}`
+    }
+    alt={project.name}
+  />
+  <GridListTileBar
+    title={project.name}
+    subtitle={<span>{project.description}</span>}
+  />
+</GridListTile>
+*/

@@ -7,6 +7,7 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
+import Hidden from "@material-ui/core/Hidden";
 
 import MWQuoteDialog from "../components/MWQuoteDialog";
 import { openQuoteDialog } from "../actions/quoteDialogActions";
@@ -120,9 +121,16 @@ const Home = () => {
                 width={1}
               >
                 <Box py={theme.custom.spacing.appBody} textAlign="center">
-                  <Typography variant="h4">
-                    Proudly Serving Northern California For 20 Years
-                  </Typography>
+                  <Hidden smUp>
+                    <Typography variant="h4">
+                      Proudly Serving Northern California For 20 Years
+                    </Typography>
+                  </Hidden>
+                  <Hidden xsDown>
+                    <Typography variant="h2">
+                      Proudly Serving Northern California For 10 Years
+                    </Typography>
+                  </Hidden>
                 </Box>
                 <Box py={theme.custom.spacing.appBody}>
                   <Grid
