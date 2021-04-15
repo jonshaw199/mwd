@@ -3,6 +3,7 @@ const constants = {
   imagesRelativeToPublic: "/images",
   internalUseIds: {
     projectImageDefault: "6066ae532999bbeec69db4cc",
+    projectImageDefaultName: "NoImageAvailable.png",
   },
   errors: {
     common: {

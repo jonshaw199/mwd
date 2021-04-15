@@ -7,7 +7,11 @@ import Box from "@material-ui/core/Box";
 import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) => ({
-  img: { height: "100%", width: "100%", objectFit: "cover" },
+  img: {
+    height: "100%",
+    width: "100%",
+    objectFit: "cover",
+  },
   loadingOverlay: {
     position: "relative",
     height: "100%",

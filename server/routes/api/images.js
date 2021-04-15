@@ -6,19 +6,6 @@ const Image = require("../../models/Image");
 const auth = require("../../middleware/auth");
 const Constants = require("../../constants");
 
-/*
-const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/images/gallery");
-  },
-  filename: (req, file, cb) => {
-    cb(null, Date.now() + "-" + file.originalname);
-  },
-});
-
-const upload = multer({ storage: storage }).single("file");
-*/
-
 const imagesRelativeToPublic = Constants.imagesRelativeToPublic;
 const upload = multer({ dest: `public${imagesRelativeToPublic}` });
 
@@ -79,8 +66,9 @@ router.post("/", auth, upload.single("mwImage"), async (req, res) => {
 });
 
 router.delete("/:id", auth, async (req, res) => {
+  const { id } = req.params;
   try {
-    const data = await Image.findByIdAndDelete(req.params.id);
+    const data = await deleteImage(id);
     return res.status(200).json({ data });
   } catch (e) {
     return res.status(500).json({ errors: e });

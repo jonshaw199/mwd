@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { v4: uuidv4 } = require("uuid");
 
 const Project = require("../../models/Project");
 const Image = require("../../models/Image");
@@ -11,6 +12,10 @@ const {
   moveProject: moveProjectInPrefs,
   createProject: createProjectInPrefs,
 } = require("../../services/preferences/service.preferences.common");
+const {
+  deleteImage: deleteImageFromProject,
+} = require("../../services/projects/service.projects.common");
+const { deleteImage } = require("../../services/images/service.images.common");
 
 router.get("/", async (req, res) => {
   try {
@@ -64,7 +69,13 @@ router.delete("/:projectID", async (req, res) => {
   const { projectID } = req.params;
   try {
     await deleteProjectFromPrefs(projectID);
-    const data = await Project.findById(projectID);
+    const project = await Project.findById(projectID);
+    project.images &&
+      project.images.length > 0 &&
+      project.images.map(async (image) => {
+        deleteImage(image);
+      });
+    const data = await Project.findByIdAndDelete(projectID);
     return res.status(200).json({ data });
   } catch (e) {
     return res.status(500).json({ errors: e });
@@ -94,12 +105,9 @@ router.post("/:id/image", auth, async (req, res) => {
 router.delete("/:projectID/image/:imageID", auth, async (req, res) => {
   const { projectID, imageID } = req.params;
   try {
-    const project = await Project.findById(projectID);
-    const imageIndex = project.images.indexOf(imageID);
-    const deletedImage = project.images[imageIndex];
-    imageIndex > -1 && project.images.splice(imageIndex, 1);
-    await project.save();
-    return res.status(200).json({ data: { deletedImage } });
+    const data = await deleteImageFromProject(projectID, imageID);
+    await deleteImage(imageID);
+    return res.status(200).json({ data });
   } catch (e) {
     return res.status(500).json({ errors: e });
   }

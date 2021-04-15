@@ -50,7 +50,8 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     zIndex: theme.zIndex.imageDialogOverlay,
-    color: "rgba(0, 0, 0, 0.54)",
+    color: theme.palette.secondary.main,
+    opacity: 0.9,
   },
   paperScrollPaper: {
     maxHeight: "100%",
@@ -126,13 +127,15 @@ const MWImageDialog = (props) => {
               <Box className={classes.arrowContainer}>
                 <IconButton
                   aria-label="left"
-                  onClick={() => slideImage("right")}
+                  onClick={() => slideImage("left")}
+                  color="secondary"
                 >
                   <ChevronLeftIcon fontSize="large" />
                 </IconButton>
                 <IconButton
                   aria-label="right"
-                  onClick={() => slideImage("left")}
+                  onClick={() => slideImage("right")}
+                  color="secondary"
                 >
                   <ChevronRightIcon fontSize="large" />
                 </IconButton>
@@ -151,6 +154,7 @@ const MWImageDialog = (props) => {
                     onClick={() => toggleShowInfo()}
                     onMouseEnter={() => setShowInfo(true)}
                     onMouseLeave={() => setShowInfo(false)}
+                    color="secondary"
                   >
                     <InfoIcon />
                   </IconButton>
@@ -185,7 +189,11 @@ const MWImageDialog = (props) => {
                 )}
                 */}
               </Box>
-              <IconButton aria-label="left" onClick={() => props.close()}>
+              <IconButton
+                aria-label="left"
+                onClick={() => props.close()}
+                color="secondary"
+              >
                 <CloseIcon />
               </IconButton>
             </Box>
