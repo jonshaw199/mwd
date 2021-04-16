@@ -50,8 +50,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     zIndex: theme.zIndex.imageDialogOverlay,
-    color: theme.palette.secondary.main,
-    opacity: 0.9,
+    color: "rgba(0, 0, 0, 0.66)",
   },
   paperScrollPaper: {
     maxHeight: "100%",
@@ -154,46 +153,12 @@ const MWImageDialog = (props) => {
                     onClick={() => toggleShowInfo()}
                     onMouseEnter={() => setShowInfo(true)}
                     onMouseLeave={() => setShowInfo(false)}
-                    color="secondary"
                   >
                     <InfoIcon />
                   </IconButton>
                 )}
-                {/*
-                {((images[activeImageIndex].name &&
-                  images[activeImageIndex].name.length) ||
-                  (images[activeImageIndex].description &&
-                    images[activeImageIndex].description.length)) && (
-                  <Tooltip
-                    title={
-                      <Box p={1}>
-                        {images[activeImageIndex].name &&
-                          images[activeImageIndex].name.length && (
-                            <Typography variant="h5">
-                              {images[activeImageIndex].name}
-                            </Typography>
-                          )}
-                        {images[activeImageIndex].description &&
-                          images[activeImageIndex].description.length && (
-                            <Typography variant="body1">
-                              {images[activeImageIndex].description}
-                            </Typography>
-                          )}
-                      </Box>
-                    }
-                  >
-                    <IconButton aria-label="info">
-                      <InfoIcon fontSize="large" />
-                    </IconButton>
-                  </Tooltip>
-                )}
-                */}
               </Box>
-              <IconButton
-                aria-label="left"
-                onClick={() => props.close()}
-                color="secondary"
-              >
+              <IconButton aria-label="left" onClick={() => props.close()}>
                 <CloseIcon />
               </IconButton>
             </Box>

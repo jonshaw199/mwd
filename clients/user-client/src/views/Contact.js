@@ -101,7 +101,32 @@ function Contact() {
               lng: preferences.companyInfo.address.longitude,
             }}
             zoom={10}
-          />
+          >
+            <Box p={1}>
+              <Box>
+                <Typography variant="body2" style={{ fontWeight: "bold" }}>
+                  May Welding and Design
+                </Typography>
+              </Box>
+              <Box pt={1}>
+                <Typography variant="caption">
+                  {preferences.companyInfo.address.streetAddress}
+                </Typography>
+              </Box>
+              <Box>
+                <Typography variant="caption">{`${preferences.companyInfo.address.city}, ${preferences.companyInfo.address.state} ${preferences.companyInfo.address.zip}`}</Typography>
+              </Box>
+              <Box>
+                <Link
+                  href={`tel:+${preferences.companyInfo.phoneUnmasked}`}
+                  variant="caption"
+                  color="secondary"
+                >
+                  {preferences.companyInfo.phoneMasked}
+                </Link>
+              </Box>
+            </Box>
+          </MWMap>
         </Box>
       )}
     </Paper>

@@ -52,6 +52,7 @@ const global = {
     navbar: 1400,
     drawer: 1300,
     adminLoginDialog: 1500,
+    mapOverlay: 1000,
   },
   custom: {
     spacing: {
