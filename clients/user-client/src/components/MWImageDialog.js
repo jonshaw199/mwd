@@ -50,7 +50,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
     zIndex: theme.zIndex.imageDialogOverlay,
-    color: "rgba(0, 0, 0, 0.66)",
+    color: "rgba(0, 0, 0, 0.55)",
   },
   paperScrollPaper: {
     maxHeight: "100%",
@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: "200px",
     padding: "10px",
     backgroundColor: "rgba(0, 0, 0, 0.54)",
-    color: "rgba(255, 255, 255, 0.90)",
+    color: "rgba(255, 255, 255, 0.75)",
   },
 }));
 

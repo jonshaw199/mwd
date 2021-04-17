@@ -14,6 +14,8 @@ import Box from "@material-ui/core/Box";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 
+const CustomMapMarkerImage = require("../res/MapMarker.png");
+
 const useStyles = makeStyles((theme) => ({
   mapContainer: {
     width: "100%",
@@ -36,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Map = ({ center, zoom, children }) => {
   const [map, setMap] = React.useState(null);
+  const [defaultMapCenter, setDefaultMapCenter] = React.useState(center);
   const [tmpZoom, setTmpZoom] = React.useState(zoom);
   const [showInfoWindow, setShowInfoWindow] = React.useState(false);
   const [currentAnimation, setCurrentAnimation] = React.useState(1);
@@ -176,11 +179,18 @@ const Map = ({ center, zoom, children }) => {
     setMap(null);
   }, []);
 
+  React.useEffect(() => {
+    const mapCenter = { ...center };
+    mapCenter.lng = mapCenter.lng - 0.08;
+    mapCenter.lat = mapCenter.lat - 0.0;
+    setDefaultMapCenter(mapCenter);
+  }, [center]);
+
   return isLoaded ? (
     <Box className={classes.root}>
       <GoogleMap
         mapContainerClassName={classes.mapContainer}
-        center={center}
+        center={defaultMapCenter}
         zoom={tmpZoom}
         onLoad={onLoad}
         onUnmount={onUnmount}
@@ -190,6 +200,7 @@ const Map = ({ center, zoom, children }) => {
           animation={currentAnimation}
           position={center}
           onClick={toggleInfoWindow}
+          icon={CustomMapMarkerImage}
         >
           {showInfoWindow && (
             <InfoWindow position={center} onCloseClick={toggleInfoWindow}>

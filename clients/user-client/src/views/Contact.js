@@ -32,6 +32,11 @@ function Contact() {
     [dispatch]
   );
 
+  const fullAddress =
+    preferences && preferences.companyInfo
+      ? `https://www.google.com/maps?q=${preferences.companyInfo.address.latitude},${preferences.companyInfo.address.longitude}`
+      : "";
+
   return (
     <Paper elevation={0}>
       <Grid container>
@@ -109,12 +114,17 @@ function Contact() {
                 </Typography>
               </Box>
               <Box pt={1}>
-                <Typography variant="caption">
+                <Link
+                  // "http://maps.google.com/?q=1200 Pennsylvania Ave SE, Washington, District of Columbia, 20003"
+                  href={fullAddress}
+                  variant="caption"
+                  color="secondary"
+                  target="_blank"
+                >
                   {preferences.companyInfo.address.streetAddress}
-                </Typography>
-              </Box>
-              <Box>
-                <Typography variant="caption">{`${preferences.companyInfo.address.city}, ${preferences.companyInfo.address.state} ${preferences.companyInfo.address.zip}`}</Typography>
+                  <br />
+                  {`${preferences.companyInfo.address.city}, ${preferences.companyInfo.address.state} ${preferences.companyInfo.address.zip}`}
+                </Link>
               </Box>
               <Box>
                 <Link

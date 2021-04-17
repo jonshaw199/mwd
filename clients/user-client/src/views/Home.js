@@ -128,7 +128,7 @@ const Home = () => {
                   </Hidden>
                   <Hidden xsDown>
                     <Typography variant="h2">
-                      Proudly Serving Northern California For 10 Years
+                      Proudly Serving Northern California For 20 Years
                     </Typography>
                   </Hidden>
                 </Box>
