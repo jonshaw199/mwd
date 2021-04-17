@@ -42,11 +42,12 @@ function MWContactForm({ sendHandler }) {
   const [phoneNumberMasked, setPhoneNumberMasked] = React.useState("");
   const [phoneNumberUnmasked, setPhoneNumberUnmasked] = React.useState("");
   const [message, setMessage] = React.useState("");
+  const [emailVerified, setEmailVerified] = React.useState(false);
 
   const steps = ["Enter Contact Info", "Compose Message", "Send"];
 
   const handleNext = () => {
-    if (!phoneInvalid && !emailInvalid) {
+    if (!nextDisabled()) {
       activeStep >= steps.length - 2 &&
         sendHandler &&
         sendHandler({
@@ -86,6 +87,7 @@ function MWContactForm({ sendHandler }) {
       setEmailInvalid(true);
       setInvalidEmailMessage("Please enter an email address");
     } else {
+      setEmailVerified(false);
       const response = await Validation.validateFields({
         email: emailAddress,
       });
@@ -94,6 +96,7 @@ function MWContactForm({ sendHandler }) {
         setInvalidEmailMessage(response.data.email);
       } else {
         clearInvalidEmail();
+        setEmailVerified(true);
       }
     }
   };
@@ -133,6 +136,10 @@ function MWContactForm({ sendHandler }) {
     setPhoneNumberMasked(e.target.value);
     setPhoneNumberUnmasked(e.target.value.replace(/\D/g, ""));
     clearInvalidPhone();
+  };
+
+  const nextDisabled = () => {
+    return !emailVerified || emailInvalid || phoneInvalid;
   };
 
   const getStepContent = (stepIndex) => {
@@ -253,7 +260,12 @@ function MWContactForm({ sendHandler }) {
             </Button>
           </Box>
           <Box mr={1}>
-            <Button onClick={handleNext} color="primary" variant="contained">
+            <Button
+              onClick={handleNext}
+              color="primary"
+              variant="contained"
+              disabled={nextDisabled()}
+            >
               {activeStep === steps.length - 2 ? "Send" : "Next"}
             </Button>
           </Box>
