@@ -40,8 +40,8 @@ const Map = ({ center, zoom, children }) => {
   const [map, setMap] = React.useState(null);
   const [defaultMapCenter, setDefaultMapCenter] = React.useState(center);
   const [tmpZoom, setTmpZoom] = React.useState(zoom);
-  const [showInfoWindow, setShowInfoWindow] = React.useState(false);
-  const [currentAnimation, setCurrentAnimation] = React.useState(1);
+  const [showInfoWindow, setShowInfoWindow] = React.useState(true);
+  const [currentAnimation, setCurrentAnimation] = React.useState(0);
   const theme = useTheme();
   const classes = useStyles();
 
@@ -146,7 +146,7 @@ const Map = ({ center, zoom, children }) => {
   const toggleInfoWindow = () => {
     if (showInfoWindow) {
       setShowInfoWindow(false);
-      // setCurrentAnimation(1);
+      setCurrentAnimation(1);
     } else {
       setShowInfoWindow(true);
       setCurrentAnimation(0);
