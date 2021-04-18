@@ -42,7 +42,7 @@ router.get("/sorted", async (req, res) => {
 /*
   Private routes
 */
-router.post("/", async (req, res) => {
+router.post("/", auth, async (req, res) => {
   const newProject = new Project(req.body);
   try {
     const data = await newProject.save();
@@ -65,7 +65,7 @@ router.put("/:id", auth, async (req, res) => {
   }
 });
 
-router.delete("/:projectID", async (req, res) => {
+router.delete("/:projectID", auth, async (req, res) => {
   const { projectID } = req.params;
   try {
     await deleteProjectFromPrefs(projectID);

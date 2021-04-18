@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../../models/User");
 
 const constants = require("../../constants");
-// const auth = require("../../middleware/auth");
+const auth = require("../../middleware/auth");
 
 router.get("/", async function (req, res, next) {
   const result = await User.find();
@@ -17,7 +17,7 @@ router.get("/:id", async (req, res, next) => {
   return res.status(200).json({ data });
 });
 
-router.post("/", async function (req, res, next) {
+router.post("/", auth, async function (req, res, next) {
   const { firstName, lastName, email, username, password } = req.body;
   const salt = await bcrypt.genSalt();
   const hash = await bcrypt.hash(password, salt);
@@ -55,7 +55,7 @@ router.post("/", async function (req, res, next) {
   });
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", auth, async (req, res) => {
   const user = req.body;
   if (req.body.password) {
     const salt = await bcrypt.genSalt();
