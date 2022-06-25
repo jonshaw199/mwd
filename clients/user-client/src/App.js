@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter as Router, Route, Redirect } from "react-router-dom";
 import HomeIcon from "@material-ui/icons/Home";
 import PhotoCameraIcon from "@material-ui/icons/PhotoCamera";
 import ChatIcon from "@material-ui/icons/Chat";
@@ -91,6 +91,9 @@ const App = () => {
                 {view.component()}
               </Route>
             ))}
+            <Route path="/mwd">
+              <Redirect to="/" />
+            </Route>
           </Box>
           <Box>
             <MWFooter />
