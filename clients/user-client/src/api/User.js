@@ -1,7 +1,7 @@
 import Constants from "../Constants";
 
 const registerUser = async (userInfo) => {
-  const response = await fetch(`/users`, {
+  const response = await fetch(`${process.env.PUBLIC_URL}/users/`, {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -20,7 +20,7 @@ const getUserByToken = async (token) => {
   if (token) {
     config.headers[Constants.authTokenName] = token;
   }
-  const response = await fetch(`/auth/user`, config);
+  const response = await fetch(`${process.env.PUBLIC_URL}/auth/user`, config);
   const jsonifiedResponse = await response.json();
   return jsonifiedResponse;
 };

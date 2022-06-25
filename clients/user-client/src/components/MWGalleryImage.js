@@ -45,7 +45,7 @@ const MWGalleryImage = ({ imgSrc, projectName, projectDescription }) => {
         <Box className={classes.imgContainer}>
           {imgSrc && (
             <img
-              src={imgSrc}
+              src={`${process.env.PUBLIC_URL}${imgSrc}`}
               alt={projectName}
               onLoad={onLoadCB}
               className={classes.img}

@@ -1,5 +1,5 @@
 const logIn = async (username, password) => {
-  const response = await fetch("/auth", {
+  const response = await fetch(`${process.env.PUBLIC_URL}/auth/`, {
     method: "POST",
     headers: {
       Accept: "application/json",

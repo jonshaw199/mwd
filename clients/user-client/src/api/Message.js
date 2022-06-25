@@ -1,7 +1,7 @@
 const Message = {
   postMessage: async (msgData) => {
     try {
-      const response = await fetch("/messages", {
+      const response = await fetch(`${process.env.PUBLIC_URL}/messages/`, {
         method: "POST",
         headers: {
           Accept: "application/json",

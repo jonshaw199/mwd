@@ -1,6 +1,6 @@
 const Validation = {
   validateFields: async (fieldsToValidate) => {
-    const response = await fetch(`/validation`, {
+    const response = await fetch(`${process.env.PUBLIC_URL}/validation/`, {
       method: "POST",
       headers: {
         Accept: "application/json",

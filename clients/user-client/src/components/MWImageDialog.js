@@ -114,6 +114,7 @@ const MWImageDialog = (props) => {
         <React.Fragment>
           <img
             src={
+              process.env.PUBLIC_URL +
               images[activeImageIndex].filePath +
               "/" +
               images[activeImageIndex].fileName

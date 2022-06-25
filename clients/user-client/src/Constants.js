@@ -1,7 +1,7 @@
 const Constants = {
   authTokenName: "mwd-auth-token",
   staticFiles: {
-    logo: "/images/logo.png",
+    logo: `${process.env.PUBLIC_URL}/images/logo.png`,
   },
 };
 
